@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "t": {
+      "item": "minecraft:torchflower"
+    },
+    "s": {
+      "item": "sunrisegardening:strong_fertilizer"
+    },
+    "b": {
+      "item": "minecraft:dragon_breath"
+    }
+  },
+  "pattern": [
+    "sbs",
+    "btb",
+    "sbs"
+  ],
+  "result": {
+    "item": "sunrisegardening:hyper_fertilizer",
+    "count": 4
+  },
+  "show_notification": true
+}

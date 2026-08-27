@@ -1,0 +1,11 @@
+{
+  "multipart": [
+    {
+      "apply": { "model": "sunrisegardening:block/iron_sprinkler" }
+    },
+    {
+      "when": { "sticklogged": true },
+      "apply": { "model": "sunrisegardening:block/sprinkler_stick" }
+    }
+  ]
+}

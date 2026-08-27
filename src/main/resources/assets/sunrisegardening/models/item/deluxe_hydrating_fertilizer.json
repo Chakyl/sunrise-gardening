@@ -1,0 +1,6 @@
+{
+    "parent": "minecraft:item/generated",
+    "textures": {
+      "layer0": "sunrisegardening:item/deluxe_hydrating_fertilizer"
+    }
+  }

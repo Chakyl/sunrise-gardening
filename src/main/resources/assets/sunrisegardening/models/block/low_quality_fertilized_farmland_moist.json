@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_farmland",
+  "textures": {
+    "dirt": "minecraft:block/dirt",
+    "top": "sunrisegardening:block/low_quality_fertilized_farmland_moist"
+  }
+}

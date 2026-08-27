@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    "sunrisegardening:weak_fertilized_farmland",
+    "sunrisegardening:strong_fertilized_farmland",
+    "sunrisegardening:hyper_fertilized_farmland",
+    "sunrisegardening:hydrating_farmland",
+    "sunrisegardening:deluxe_hydrating_farmland",
+    "sunrisegardening:bountiful_fertilized_farmland",
+    "sunrisegardening:low_quality_fertilized_farmland",
+    "sunrisegardening:high_quality_fertilized_farmland",
+    "sunrisegardening:pristine_quality_fertilized_farmland",
+    "sunrisegardening:garden_pot",
+    "sunrisegardening:rope_hanging_garden_pot",
+    "sunrisegardening:iron_hanging_garden_pot"
+  ]
+}

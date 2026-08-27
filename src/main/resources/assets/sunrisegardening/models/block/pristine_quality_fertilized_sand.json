@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block",
+  "textures": {
+    "dirt": "minecraft:block/sand",
+    "top": "sunrisegardening:block/pristine_quality_fertilized_sand"
+  }
+}

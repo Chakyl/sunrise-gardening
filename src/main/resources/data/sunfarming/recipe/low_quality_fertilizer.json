@@ -1,0 +1,22 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+      "f": {
+        "tag": "minecraft:fishes"
+      },
+      "c": {
+        "item": "minecraft:charcoal"
+      }
+    },
+    "pattern": [
+      " c ",
+      "cfc",
+      " c "
+    ],
+    "result": {
+      "item": "sunrisegardening:low_quality_fertilizer",
+      "count": 4
+    },
+    "show_notification": true
+  }

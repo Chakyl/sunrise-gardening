@@ -1,0 +1,25 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+      "r": {
+        "item": "minecraft:blaze_rod"
+      },
+      "w": {
+        "item": "sunrisegardening:weak_fertilizer"
+      },
+      "b": {
+        "item": "minecraft:bone_block"
+      }
+    },
+    "pattern": [
+      "wbw",
+      "brb",
+      "wbw"
+    ],
+    "result": {
+      "item": "sunrisegardening:strong_fertilizer",
+      "count": 4
+    },
+    "show_notification": true
+  }

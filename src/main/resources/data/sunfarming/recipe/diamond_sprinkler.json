@@ -1,0 +1,22 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+      "d": {
+        "item": "minecraft:diamond"
+      },
+      "S": {
+        "item": "sunrisegardening:gold_sprinkler"
+      }
+    },
+    "pattern": [
+      "ddd",
+      "dSd",
+      "ddd"
+    ],
+    "result": {
+      "item": "sunrisegardening:diamond_sprinkler",
+      "count": 1
+    },
+    "show_notification": true
+  }
