@@ -2,6 +2,7 @@ package io.github.chakyl.sunrisegardening.registry;
 
 import com.google.common.base.Suppliers;
 import io.github.chakyl.sunrisegardening.SunriseGardening;
+import io.github.chakyl.sunrisegardening.blocks.SprinklerBlock;
 import io.github.chakyl.sunrisegardening.items.FertilizerItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
@@ -9,14 +10,18 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
@@ -47,12 +52,26 @@ public final class SunriseRegistry {
         public static void init() {
         }
 
-//        public static final DeferredHolder<Block, Block> BLACK_ATM = registerWithItem("black_atm", () ->
-//                new ATMBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).sound(SoundType.METAL).noOcclusion().strength(1.5F, 6.0F)));
-//
+        public static final DeferredHolder<Block, Block> IRON_SPRINKLER = registerWithItem("iron_sprinkler",
+                () -> new SprinklerBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).sound(SoundType.COPPER).noOcclusion().strength(1F, 2.0F)));
+        public static final DeferredHolder<Block, Block> GOLD_SPRINKLER = registerWithItem("gold_sprinkler",
+                () -> new SprinklerBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).sound(SoundType.COPPER).noOcclusion().strength(1F, 2.0F)));
+        public static final DeferredHolder<Block, Block> DIAMOND_SPRINKLER = registerWithItem("diamond_sprinkler",
+                () -> new SprinklerBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).sound(SoundType.COPPER).noOcclusion().strength(1F, 2.0F)));
+        public static final DeferredHolder<Block, Block> NETHERITE_SPRINKLER = registerWithItem("netherite_sprinkler",
+                () -> new SprinklerBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).sound(SoundType.COPPER).noOcclusion().strength(1F, 2.0F)));
 
         private static boolean never(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
             return false;
+        }
+        private static DeferredHolder<Block, Block> registerWithItem(final String name, final Supplier<Block> supplier) {
+            return registerWithItem(name, supplier, ItemRegistry::registerBlockItem);
+        }
+
+        private static DeferredHolder<Block, Block> registerWithItem(final String name, final Supplier<Block> blockSupplier, final Function<DeferredHolder<Block, Block>, DeferredHolder<Item, Item>> itemSupplier) {
+            final DeferredHolder<Block, Block> block = BLOCKS.register(name, blockSupplier);
+            final DeferredHolder<Item, Item> item = itemSupplier.apply(block);
+            return block;
         }
     }
 

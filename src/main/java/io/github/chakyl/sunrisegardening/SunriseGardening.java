@@ -15,6 +15,18 @@ public class SunriseGardening {
     public static final Logger LOGGER = LogUtils.getLogger();
     public static boolean QUALITY_FOOD_INSTALLED = false;
     public static boolean KUBEJS_INSTALLED = false;
+    public static boolean SERENE_SEASONS_INSTALLED = false;
+    public static boolean FARMERS_DELIGHT_INSTALLED = false;
+    public static boolean VINTAGEDELIGHT_INSTALLED = false;
+    public static boolean SUPPLEMENTARIES_INSTALLED = false;
+    public static boolean HAUNTED_HARVEST_INSTALLED = false;
+    public static boolean CULTURAL_DELIGHTS_INSTALLED = false;
+    public static boolean WINDSWEPT_INSTALLED = false;
+    public static boolean VINERY_INSTALLED = false;
+    public static boolean FLOWERARY_INSTALLED = false;
+    public static boolean COBBLEMON_INSTALLED = false;
+    public static boolean HEARTH_AND_HARVEST_INSTALLED = false;
+    public static boolean KALEIDOSCOPE_COOKERY_INSTALLED = false;
 
     public SunriseGardening(ModContainer container) {
         IEventBus modEventBus = container.getEventBus();

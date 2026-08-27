@@ -10,6 +10,6 @@ import net.minecraft.world.level.block.state.BlockState;
 public class SimpleHarvestModuleMixin {
     @ModifyVariable(method = "harvestAndReplant",at = @At("STORE"),name = "newBlock")
     private static BlockState modifyReplantedBlock(BlockState original) {
-        return SimpleHarvestUtil.setReplantedCropStage(original);
+        return SimpleHarvestUtil.handleCropHarvest(original);
     }
 }

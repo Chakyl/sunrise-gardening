@@ -1,14 +1,20 @@
 package io.github.chakyl.sunrisegardening.util;
 
 import io.github.chakyl.sunrisegardening.registry.DataMapRegistry;
+import io.github.chakyl.sunrisegardening.registry.SunriseTags;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.Property;
-import org.jetbrains.annotations.Nullable;
 
 public class SimpleHarvestUtil {
-    public static BlockState setReplantedCropStage(BlockState blockState) {
+    // Used by various mixins to handle single harvest/regrowable crops
+    public static BlockState handleCropHarvest(BlockState blockState) {
+        if (blockState.is(SunriseTags.SINGLE_HARVEST_CROP)) {
+            // TODO: add some effects?
+            return Blocks.AIR.defaultBlockState();
+        }
         Integer age = blockState.getBlockHolder().getData(DataMapRegistry.MULTI_HARVEST_CROPS_DATA);
         if (age == null) return blockState;
         if (blockState.getBlock() instanceof CropBlock cropBlock) {
