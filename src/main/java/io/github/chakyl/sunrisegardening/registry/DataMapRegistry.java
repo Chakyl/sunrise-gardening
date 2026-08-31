@@ -2,6 +2,7 @@ package io.github.chakyl.sunrisegardening.registry;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.registries.datamaps.DataMapType;
 
@@ -11,6 +12,12 @@ public class DataMapRegistry {
     public static final DataMapType<Block, Integer> MULTI_HARVEST_CROPS_DATA = DataMapType.builder(
             loc("multi_harvest_crops"),
             Registries.BLOCK,
+            Codec.INT
+    ).build();
+
+    public static final DataMapType<Item, Integer> HOE_AOE_RADIUS = DataMapType.builder(
+            loc("hoe_aoe_radius"),
+            Registries.ITEM,
             Codec.INT
     ).build();
 }

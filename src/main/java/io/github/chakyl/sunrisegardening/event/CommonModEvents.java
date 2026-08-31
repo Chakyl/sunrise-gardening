@@ -7,6 +7,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
 
+import static io.github.chakyl.sunrisegardening.registry.DataMapRegistry.HOE_AOE_RADIUS;
 import static io.github.chakyl.sunrisegardening.registry.DataMapRegistry.MULTI_HARVEST_CROPS_DATA;
 
 @EventBusSubscriber(modid = SunriseGardening.MODID)
@@ -32,5 +33,6 @@ public class CommonModEvents {
     @SubscribeEvent
     public static void registerDataMapTypes(RegisterDataMapTypesEvent event) {
         event.register(MULTI_HARVEST_CROPS_DATA);
+        event.register(HOE_AOE_RADIUS);
     }
 }
