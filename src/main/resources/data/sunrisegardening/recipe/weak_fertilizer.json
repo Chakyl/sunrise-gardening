@@ -15,7 +15,7 @@
       "bhb"
     ],
     "result": {
-      "item": "sunrisegardening:weak_fertilizer",
+      "id": "sunrisegardening:weak_fertilizer",
       "count": 4
     },
     "show_notification": true

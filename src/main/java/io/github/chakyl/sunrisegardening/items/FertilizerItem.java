@@ -1,7 +1,10 @@
 package io.github.chakyl.sunrisegardening.items;
 
+import io.github.chakyl.sunrisegardening.registry.SunriseRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -28,52 +31,56 @@ public class FertilizerItem extends Item {
             ItemStack stack = pContext.getItemInHand();
 
             boolean targetingCrop = state.is(BlockTags.CROPS) && level.getBlockState(posClicked.below()).is(Blocks.FARMLAND);
-
-
-//            if (level.getBlockState(posClicked).is(Blocks.FARMLAND) || level.getBlockState(posClicked).is(SunnyRegistry.BlockRegistry.TILLED_SAND.get()) || level.getBlockState(posClicked).getBlock() instanceof GardenPotBlock || targetingCrop) {
-//                if (targetingCrop) {
-//                    posClicked = posClicked.below();
-//                    state = level.getBlockState(posClicked);
-//                }
-//                if (level.getBlockState(posClicked).is(SunnyRegistry.BlockRegistry.TILLED_SAND.get())) {
-//                    if (stack.is(SunnyRegistry.ItemRegistry.HYPER_FERTILIZER.get())) {
-//                        level.setBlock(posClicked, SunnyRegistry.BlockRegistry.HYPER_FERTILIZED_SAND.get().defaultBlockState(), 3);
+// TODO: Put that in the code block before
+// || level.getBlockState(posClicked).is(SunriseRegistry.BlockRegistry.TILLED_SAND.get()) || level.getBlockState(posClicked).getBlock() instanceof GardenPotBlock
+            if (level.getBlockState(posClicked).is(Blocks.FARMLAND) || targetingCrop) {
+                if (targetingCrop) {
+                    posClicked = posClicked.below();
+                    state = level.getBlockState(posClicked);
+                }
+//                if (level.getBlockState(posClicked).is(SunriseRegistry.BlockRegistry.TILLED_SAND.get())) {
+//                    if (stack.is(SunriseRegistry.ItemRegistry.HYPER_FERTILIZER.get())) {
+//                        level.setBlock(posClicked, SunriseRegistry.BlockRegistry.HYPER_FERTILIZED_SAND.get().defaultBlockState(), 3);
 //                    } else {
 //                        return InteractionResult.FAIL;
 //                    }
 //                } else if (level.getBlockState(posClicked).getBlock() instanceof GardenPotBlock){
-//                    if (stack.is(SunnyRegistry.ItemRegistry.DELUXE_HYDRATING_FERTILIZER.get()) && !level.getBlockState(posClicked).getValue(GardenPotBlock.DELUXE)) {
+//                    if (stack.is(SunriseRegistry.ItemRegistry.DELUXE_HYDRATING_FERTILIZER.get()) && !level.getBlockState(posClicked).getValue(GardenPotBlock.DELUXE)) {
 //                        level.setBlock(posClicked, level.getBlockState(posClicked).setValue(GardenPotBlock.DELUXE, true), 3);
 //                    } else {
 //                        return InteractionResult.FAIL;
 //                    }
-//                }else {
-//                    Item fertilizerItem = stack.getItem();
-//                    Block farmland = switch (fertilizerItem) {
-//                        case fertilizerItem == SunnyRegistry.ItemRegistry.WEAK_FERTILIZER.get() -> SunnyRegistry.BlockRegistry.WEAK_FERTILIZED_FARMLAND.get();
-//                        case fertilizerItem == SunnyRegistry.ItemRegistry.STRONG_FERTILIZER.get() -> SunnyRegistry.BlockRegistry.STRONG_FERTILIZED_FARMLAND.get();
-//                        case fertilizerItem == SunnyRegistry.ItemRegistry.HYPER_FERTILIZER.get() -> SunnyRegistry.BlockRegistry.HYPER_FERTILIZED_FARMLAND.get();
-//                        case fertilizerItem == SunnyRegistry.ItemRegistry.HYDRATING_FERTILIZER.get() -> SunnyRegistry.BlockRegistry.HYDRATING_FARMLAND.get();
-//                        case fertilizerItem == SunnyRegistry.ItemRegistry.DELUXE_HYDRATING_FERTILIZER.get() -> SunnyRegistry.BlockRegistry.DELUXE_HYDRATING_FARMLAND.get();
-//                        case fertilizerItem == SunnyRegistry.ItemRegistry.BOUNTIFUL_FERTILIZER.get() -> SunnyRegistry.BlockRegistry.BOUNTIFUL_FERTILIZED_FARMLAND.get();
-//                        case fertilizerItem == SunnyRegistry.ItemRegistry.LOW_QUALITY_FERTILIZER.get() -> SunnyRegistry.BlockRegistry.LOW_QUALITY_FERTILIZED_FARMLAND.get();
-//                        case fertilizerItem == SunnyRegistry.ItemRegistry.HIGH_QUALITY_FERTILIZER.get() -> SunnyRegistry.BlockRegistry.HIGH_QUALITY_FERTILIZED_FARMLAND.get();
-//                        case fertilizerItem == SunnyRegistry.ItemRegistry.PRISTINE_QUALITY_FERTILIZER.get() -> SunnyRegistry.BlockRegistry.PRISTINE_QUALITY_FERTILIZED_FARMLAND.get();
-//                        default -> null;
-//                    };
-//
-//                    if (farmland != null) {
-//                        level.setBlock(posClicked, moisturizer(farmland, state), 3);
-//                    } else {
-//                        return InteractionResult.FAIL;
-//                    }
 //                }
-//                if (player != null && !player.isCreative()) {
-//                    stack.shrink(1);
-//                }
-//                level.playSound(null, posClicked.getX(), posClicked.getY(), posClicked.getZ(), SoundEvents.GRASS_HIT, SoundSource.BLOCKS, 1.0F, 0.8F);
-//                return InteractionResult.SUCCESS;
-//            }
+
+                else {
+                    if (stack.is(SunriseRegistry.ItemRegistry.WEAK_FERTILIZER.get())) {
+                        level.setBlock(posClicked, moisturizer(SunriseRegistry.BlockRegistry.WEAK_FERTILIZED_FARMLAND.value(), state), 3);
+                    } else if (stack.is(SunriseRegistry.ItemRegistry.STRONG_FERTILIZER.get())) {
+                        level.setBlock(posClicked, moisturizer(SunriseRegistry.BlockRegistry.STRONG_FERTILIZED_FARMLAND.value(), state), 3);
+                    } else if (stack.is(SunriseRegistry.ItemRegistry.HYPER_FERTILIZER.get())) {
+                        level.setBlock(posClicked, moisturizer(SunriseRegistry.BlockRegistry.HYPER_FERTILIZED_FARMLAND.value(), state), 3);
+                    } else if (stack.is(SunriseRegistry.ItemRegistry.HYDRATING_FERTILIZER.get())) {
+                        level.setBlock(posClicked, moisturizer(SunriseRegistry.BlockRegistry.HYDRATING_FARMLAND.value(), state), 3);
+                    } else if (stack.is(SunriseRegistry.ItemRegistry.DELUXE_HYDRATING_FERTILIZER.get())) {
+                        level.setBlock(posClicked, moisturizer(SunriseRegistry.BlockRegistry.DELUXE_HYDRATING_FARMLAND.value(), state), 3);
+                    } else if (stack.is(SunriseRegistry.ItemRegistry.BOUNTIFUL_FERTILIZER.get())) {
+                        level.setBlock(posClicked, moisturizer(SunriseRegistry.BlockRegistry.BOUNTIFUL_FERTILIZED_FARMLAND.value(), state), 3);
+                    } else if (stack.is(SunriseRegistry.ItemRegistry.LOW_QUALITY_FERTILIZER.get())) {
+                        level.setBlock(posClicked, moisturizer(SunriseRegistry.BlockRegistry.LOW_QUALITY_FERTILIZED_FARMLAND.value(), state), 3);
+                    } else if (stack.is(SunriseRegistry.ItemRegistry.HIGH_QUALITY_FERTILIZER.get())) {
+                        level.setBlock(posClicked, moisturizer(SunriseRegistry.BlockRegistry.HIGH_QUALITY_FERTILIZED_FARMLAND.value(), state), 3);
+                    } else if (stack.is(SunriseRegistry.ItemRegistry.PRISTINE_QUALITY_FERTILIZER.get())) {
+                        level.setBlock(posClicked, moisturizer(SunriseRegistry.BlockRegistry.PRISTINE_QUALITY_FERTILIZED_FARMLAND.value(), state), 3);
+                    } else {
+                        return InteractionResult.FAIL;
+                    }
+                }
+                if (player != null && !player.isCreative()) {
+                    stack.shrink(1);
+                }
+                level.playSound(null, posClicked.getX(), posClicked.getY(), posClicked.getZ(), SoundEvents.GRASS_HIT, SoundSource.BLOCKS, 1.0F, 0.8F);
+                return InteractionResult.SUCCESS;
+            }
         }
         return InteractionResult.FAIL;
     }

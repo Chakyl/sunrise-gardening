@@ -15,7 +15,7 @@
       " c "
     ],
     "result": {
-      "item": "sunrisegardening:low_quality_fertilizer",
+      "id": "sunrisegardening:low_quality_fertilizer",
       "count": 4
     },
     "show_notification": true

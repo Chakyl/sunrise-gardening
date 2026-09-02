@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "sunrisegardening:tilled_soil",
     "sunrisegardening:weak_fertilized_farmland",
     "sunrisegardening:strong_fertilized_farmland",
     "sunrisegardening:hyper_fertilized_farmland",

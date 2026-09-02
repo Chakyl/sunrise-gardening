@@ -1,0 +1,7 @@
+{
+  "values": {
+    "sunrisegardening:weak_fertilized_farmland": 1,
+    "sunrisegardening:strong_fertilized_farmland": 2,
+    "sunrisegardening:hyper_fertilized_farmland": 3
+  }
+}

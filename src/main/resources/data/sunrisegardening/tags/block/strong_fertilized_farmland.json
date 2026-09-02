@@ -1,7 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    "sunrisegardening:strong_fertilized_farmland",
-    { "id": "farmersdelight:rich_soil", "required": false }
-  ]
-}

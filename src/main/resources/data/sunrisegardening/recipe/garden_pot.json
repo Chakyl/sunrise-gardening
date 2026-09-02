@@ -18,7 +18,7 @@
       "ttt"
     ],
     "result": {
-      "item": "sunrisegardening:garden_pot",
+      "id": "sunrisegardening:garden_pot",
       "count": 1
     },
     "show_notification": true

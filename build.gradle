@@ -156,10 +156,40 @@ dependencies {
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
     compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
     compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
-    // We add the full version to localRuntime, not runtimeOnly, so that we do not publish a dependency on it
     localRuntime "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+    implementation "curse.maven:jade-324717:8591319"
     implementation "curse.maven:quark-243121:8420966"
     implementation "curse.maven:zeta-968868:7980010"
+
+    // Bots lib - 4.1.1-1.21.1
+    implementation "curse.maven:bots-lib-1062753:8751542"
+    // Serene Seasons - 1.21.1-10.1.0.3 | Glitchcore - 1.21.1-2.1.0.2
+    implementation "curse.maven:serene-seasons-291874:6182596"
+    implementation "curse.maven:glitchcore-955399:8109792"
+    // Farmers Delight - 1.3.4 - 1.21.1
+    implementation "curse.maven:farmers-delight-398521:8765184"
+    // Vintage Delight KOTS - 0.3.0
+    implementation "curse.maven:vintage-delight-kots-1569514:8615495"
+    // Supplementaries - 1.21.1-3.9.6 | Moonlight lib - 1.21.1-3.5.2
+    implementation "curse.maven:supplementaries-412082:8767861"
+    implementation "curse.maven:selene-499980:8749776"
+    // Cultural Delights - 0.17.8
+    implementation "curse.maven:cultural-delights-574622:8126191"
+    // Windswept - 1.21.1-4.0.2 | Blueprint - 1.21.1 - 8.1.1
+    implementation "curse.maven:windsweptmod-636321:8726892"
+    implementation "curse.maven:blueprint-382216:8397829"
+    // Vinery - 1.5.3 - 1.21.1
+    compileOnly "curse.maven:lets-do-vinery-704465:7539914"
+    // Flowerary - NOT UPDATED TO 1.21.1
+//    implementation fg.deobf("curse.maven:flowerary-1272888:7154561")
+    // Cobblemon - I don't want to deal with it right now
+//    implementation fg.deobf("curse.maven:cobblemon-687131:5375390")
+    // Hearth and Harvest - 1.21.1-1.3.3
+    implementation "curse.maven:hearth-and-harvest-1212197:8590173"
+    // Haunted Harvest - 1.21-3.5.0
+    implementation "curse.maven:haunted-harvest-541753:8594354"
+    // Kaleidoscope Mods - 1.4.1
+    implementation "curse.maven:kaleidoscope-cookery-1309203:8266772"
     // For more info:
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html

@@ -15,7 +15,7 @@
       " G "
     ],
     "result": {
-      "item": "sunrisegardening:gold_sprinkler",
+      "id": "sunrisegardening:gold_sprinkler",
       "count": 1
     },
     "show_notification": true
