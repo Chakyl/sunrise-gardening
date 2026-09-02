@@ -150,7 +150,8 @@ public class CropHandlerUtils {
 
     public static boolean isNearSprinkler(LevelReader level, BlockPos pPos) {
         for (BlockPos blockpos : BlockPos.betweenClosed(pPos.offset(-4, 0, -4), pPos.offset(4, 1, 4))) {
-            if (inRange(level.getBlockState(blockpos).getBlockHolder().getData(DataMapRegistry.SPRINKLER_SIZE), blockpos, pPos))
+            BlockState scannedState = level.getBlockState(blockpos);
+            if (scannedState.is(SunriseTags.SPRINKLER) && inRange(scannedState.getBlockHolder().getData(DataMapRegistry.SPRINKLER_SIZE), blockpos, pPos))
                 return true;
         }
         return false;

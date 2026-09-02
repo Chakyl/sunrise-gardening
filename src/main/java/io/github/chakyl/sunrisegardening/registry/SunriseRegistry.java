@@ -2,6 +2,7 @@ package io.github.chakyl.sunrisegardening.registry;
 
 import com.google.common.base.Suppliers;
 import io.github.chakyl.sunrisegardening.SunriseGardening;
+import io.github.chakyl.sunrisegardening.blocks.GardenPotBlock;
 import io.github.chakyl.sunrisegardening.blocks.SprinklerBlock;
 import io.github.chakyl.sunrisegardening.blocks.TilledSoilBlock;
 import io.github.chakyl.sunrisegardening.dataattachments.TilledBlockChunkData;
@@ -59,28 +60,35 @@ public final class SunriseRegistry {
     public static final class BlockRegistry {
         public static void init() {
         }
+
         public static final DeferredHolder<Block, Block> TILLED_SOIL = registerWithItem("tilled_soil",
                 () -> new TilledSoilBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.FARMLAND)));
-        public static final DeferredHolder<Block, Block>WEAK_FERTILIZED_FARMLAND = registerWithItem("weak_fertilized_farmland",
+        public static final DeferredHolder<Block, Block> WEAK_FERTILIZED_FARMLAND = registerWithItem("weak_fertilized_farmland",
                 () -> new TilledSoilBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.FARMLAND)));
-        public static final DeferredHolder<Block, Block>STRONG_FERTILIZED_FARMLAND = registerWithItem("strong_fertilized_farmland",
+        public static final DeferredHolder<Block, Block> STRONG_FERTILIZED_FARMLAND = registerWithItem("strong_fertilized_farmland",
                 () -> new TilledSoilBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.FARMLAND)));
-        public static final DeferredHolder<Block, Block>HYPER_FERTILIZED_FARMLAND = registerWithItem("hyper_fertilized_farmland",
+        public static final DeferredHolder<Block, Block> HYPER_FERTILIZED_FARMLAND = registerWithItem("hyper_fertilized_farmland",
                 () -> new TilledSoilBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.FARMLAND)));
-        public static final DeferredHolder<Block, Block>HYDRATING_FARMLAND = registerWithItem("hydrating_farmland",
+        public static final DeferredHolder<Block, Block> HYDRATING_FARMLAND = registerWithItem("hydrating_farmland",
                 () -> new TilledSoilBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.FARMLAND)));
-        public static final DeferredHolder<Block, Block>DELUXE_HYDRATING_FARMLAND = registerWithItem("deluxe_hydrating_farmland",
+        public static final DeferredHolder<Block, Block> DELUXE_HYDRATING_FARMLAND = registerWithItem("deluxe_hydrating_farmland",
                 () -> new TilledSoilBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.FARMLAND)));
-        public static final DeferredHolder<Block, Block>BOUNTIFUL_FERTILIZED_FARMLAND = registerWithItem("bountiful_fertilized_farmland",
+        public static final DeferredHolder<Block, Block> BOUNTIFUL_FERTILIZED_FARMLAND = registerWithItem("bountiful_fertilized_farmland",
                 () -> new TilledSoilBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.FARMLAND)));
-        public static final DeferredHolder<Block, Block>LOW_QUALITY_FERTILIZED_FARMLAND = registerWithItem("low_quality_fertilized_farmland",
+        public static final DeferredHolder<Block, Block> LOW_QUALITY_FERTILIZED_FARMLAND = registerWithItem("low_quality_fertilized_farmland",
                 () -> new TilledSoilBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.FARMLAND)));
-        public static final DeferredHolder<Block, Block>HIGH_QUALITY_FERTILIZED_FARMLAND = registerWithItem("high_quality_fertilized_farmland",
+        public static final DeferredHolder<Block, Block> HIGH_QUALITY_FERTILIZED_FARMLAND = registerWithItem("high_quality_fertilized_farmland",
                 () -> new TilledSoilBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.FARMLAND)));
-        public static final DeferredHolder<Block, Block>PRISTINE_QUALITY_FERTILIZED_FARMLAND = registerWithItem("pristine_quality_fertilized_farmland",
+        public static final DeferredHolder<Block, Block> PRISTINE_QUALITY_FERTILIZED_FARMLAND = registerWithItem("pristine_quality_fertilized_farmland",
                 () -> new TilledSoilBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.FARMLAND)));
 
-        
+        public static final DeferredHolder<Block, Block> GARDEN_POT = registerWithItem("garden_pot",
+                () -> new GardenPotBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.TERRACOTTA)));
+        public static final DeferredHolder<Block, Block>  IRON_HANGING_GARDEN_POT = registerWithItem("iron_hanging_garden_pot",
+                () -> new GardenPotBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.TERRACOTTA)));
+        public static final DeferredHolder<Block, Block>  ROPE_HANGING_GARDEN_POT = registerWithItem("rope_hanging_garden_pot",
+                () -> new GardenPotBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.TERRACOTTA)));
+
         public static final DeferredHolder<Block, Block> IRON_SPRINKLER = registerWithItem("iron_sprinkler",
                 () -> new SprinklerBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).sound(SoundType.COPPER).noOcclusion().strength(1F, 2.0F)));
         public static final DeferredHolder<Block, Block> GOLD_SPRINKLER = registerWithItem("gold_sprinkler",

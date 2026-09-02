@@ -1,5 +1,6 @@
 {
   "itemGroup.sunrisegardening": "Sunrise Gardening",
+  "block.sunrisegardening.tilled_soil": "Tilled Soil",
   "block.sunrisegardening.weak_fertilized_farmland": "Weak Fertilized Farmland",
   "block.sunrisegardening.strong_fertilized_farmland": "Strong Fertilized Farmland",
   "block.sunrisegardening.hyper_fertilized_farmland": "Hyper Fertilized Farmland",
@@ -26,5 +27,7 @@
   "block.sunrisegardening.netherite_sprinkler": "Netherite Sprinkler",
   "block.sunrisegardening.garden_pot": "Garden Pot",
   "block.sunrisegardening.rope_hanging_garden_pot": "Rope Hanging Garden Pot",
-  "block.sunrisegardening.iron_hanging_garden_pot": "Iron Hanging Garden Pot"
+  "block.sunrisegardening.iron_hanging_garden_pot": "Iron Hanging Garden Pot",
+
+  "config.jade.plugin_sunrisegardening.crop_info": "Crop Info"
 }

@@ -18,15 +18,13 @@ public class SunriseTags {
     public static final TagKey<Block> LOW_QUALITY_FERTILIZED_FARMLAND = tag("low_quality_fertilized_farmland");
     public static final TagKey<Block> HIGH_QUALITY_FERTILIZED_FARMLAND = tag("high_quality_farmland");
     public static final TagKey<Block> PRISTINE_QUALITY_FERTILIZED_FARMLAND = tag("pristine_quality_farmland");
-    // Sprinkler tags
-    public static final TagKey<Block> SPRINKLER_TIER_1 = tag("sprinkler_tier_1");
-    public static final TagKey<Block> SPRINKLER_TIER_2 = tag("sprinkler_tier_2");
-    public static final TagKey<Block> SPRINKLER_TIER_3 = tag("sprinkler_tier_3");
-    public static final TagKey<Block> SPRINKLER_TIER_4 = tag("sprinkler_tier_4");
+
     // Misc
+    public static final TagKey<Block> TURNS_INTO_TILLED_SOIL = tag("turns_into_tilled_soil");
     public static final TagKey<Block> CANCEL_RANDOM_TICK = tag("cancel_random_tick");
     public static final TagKey<Block> NOT_DAILY = tag("not_daily");
     public static final TagKey<Block> SINGLE_HARVEST_CROP = tag("single_harvest_crop");
+    public static final TagKey<Block> SPRINKLER = tag("sprinkler");
 
     public static TagKey<Block> tag(String name) {
         return BlockTags.create(loc(name));

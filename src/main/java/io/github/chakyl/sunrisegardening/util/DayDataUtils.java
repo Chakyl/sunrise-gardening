@@ -32,16 +32,21 @@ public class DayDataUtils {
     }
 
     public static int getCalculatedAge(DayData dayData, int maxAge, int totalGrowTime) {
-        return Math.min(maxAge, (int) ((dayData.totalDaysGrown * (long) maxAge) / totalGrowTime));
+        return Math.max(0, Math.min(maxAge, (int) ((dayData.totalDaysGrown * (long) maxAge) / totalGrowTime)));
     }
 
+    // Makes the chunk attachment data reflect the blockstate age of the crop
     public static void syncDayData(DayData dayData, BlockState cropBlockState, CropBlock cropBlock) {
         int totalGrowTime = getTotalGrowTime(cropBlockState, cropBlock);
         int maxAge = cropBlock.getMaxAge();
-        int currentAge = cropBlockState.getValue(CropBlock.AGE);
+        int currentAge = cropBlock.getAge(cropBlockState);
         if (currentAge != getCalculatedAge(dayData, maxAge, totalGrowTime)) {
-            dayData.totalDaysGrown = (currentAge * totalGrowTime + maxAge - 1) / maxAge;
+            dayData.totalDaysGrown = Math.max(0, (currentAge * totalGrowTime + maxAge - 1) / maxAge);
         }
+        if (dayData.totalDaysGrown < 0) dayData.totalDaysGrown = 0;
+    }
 
+    public static boolean compareDay(long day, long checkedDay, int amount) {
+        return day < checkedDay || day - checkedDay >= amount;
     }
 }

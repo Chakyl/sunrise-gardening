@@ -32,8 +32,8 @@ public enum CropInfoProvider implements  IBlockComponentProvider, IServerDataPro
         if (accessor.getServerData().contains("days_grown")) {
             if (state.getBlock() instanceof CropBlock cropBlock) {
                 if (!cropBlock.isMaxAge(state)) {
-                    // TODO: re-add block name idk how
                     tooltip.clear();
+                    tooltip.add(accessor.getBlock().getName());
                     tooltip.add(Component.literal("Growth: " + accessor.getServerData().get("days_grown") + "/" + accessor.getServerData().get("total_grow_time")));
                 }
             }
