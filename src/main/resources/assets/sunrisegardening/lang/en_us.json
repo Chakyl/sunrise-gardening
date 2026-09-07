@@ -10,6 +10,7 @@
   "block.sunrisegardening.high_quality_fertilized_farmland": "High Quality Fertilized Farmland",
   "block.sunrisegardening.pristine_quality_fertilized_farmland": "Pristine Quality Fertilized Farmland",
   "block.sunrisegardening.bountiful_fertilized_farmland": "Bountiful Fertilized Farmland",
+
   "item.sunrisegardening.weak_fertilizer": "Weak Fertilizer",
   "item.sunrisegardening.strong_fertilizer": "Strong Fertilizer",
   "item.sunrisegardening.hyper_fertilizer": "Hyper Fertilizer",
@@ -29,5 +30,12 @@
   "block.sunrisegardening.rope_hanging_garden_pot": "Rope Hanging Garden Pot",
   "block.sunrisegardening.iron_hanging_garden_pot": "Iron Hanging Garden Pot",
 
+
+  "tooltip.sunrisegardening.harvest_info_hold": "Hold [§7Shift§8]",
+  "tooltip.sunrisegardening.harvest_info": "Harvest Info:",
+  "tooltip.sunrisegardening.grow_time": " Grow Time: %s days",
+  "tooltip.sunrisegardening.regrow_time": " Regrow Time: %s days",
+  "tooltip.sunrisegardening.single_harvest": " Single Harvest",
+  "tooltip.sunrisegardening.multi_harvest": " Multi Harvest",
   "config.jade.plugin_sunrisegardening.crop_info": "Crop Info"
 }

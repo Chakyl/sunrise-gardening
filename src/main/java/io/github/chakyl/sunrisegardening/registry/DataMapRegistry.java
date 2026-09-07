@@ -10,7 +10,7 @@ import net.neoforged.neoforge.registries.datamaps.DataMapType;
 import static io.github.chakyl.sunrisegardening.SunriseGardening.loc;
 
 public class DataMapRegistry {
-    public static final DataMapType<Block, Integer> MULTI_HARVEST_CROPS_DATA = DataMapType.builder(
+    public static final DataMapType<Block, Integer> MULTI_HARVEST_CROPS = DataMapType.builder(
             loc("multi_harvest_crops"),
             Registries.BLOCK,
             Codec.INT
@@ -45,4 +45,16 @@ public class DataMapRegistry {
             Registries.BIOME,
             Codec.STRING
     ).build();
+
+    static <T> T getOrDefault(Block block, DataMapType<Block, T> dataMap, T d) {
+        T data = block.builtInRegistryHolder().getData(dataMap);
+        if(data == null) return d;
+        return data;
+    }
+
+    static <T> T getOrDefault(Item item, DataMapType<Item, T> dataMap, T d) {
+        T data = item.builtInRegistryHolder().getData(dataMap);
+        if(data == null) return d;
+        return data;
+    }
 }

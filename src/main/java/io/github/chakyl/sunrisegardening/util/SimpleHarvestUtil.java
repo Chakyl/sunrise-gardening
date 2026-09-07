@@ -19,7 +19,7 @@ public class SimpleHarvestUtil {
             level.playSound(null, pos, SoundEvents.CROP_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
             return Blocks.AIR.defaultBlockState();
         }
-        Integer age = blockState.getBlockHolder().getData(DataMapRegistry.MULTI_HARVEST_CROPS_DATA);
+        Integer age = blockState.getBlockHolder().getData(DataMapRegistry.MULTI_HARVEST_CROPS);
         if (age == null) return blockState;
         if (blockState.getBlock() instanceof CropBlock cropBlock) {
             // TODO: make multi harvest crop data use resolved age rather than blockstate age

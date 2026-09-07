@@ -33,7 +33,7 @@ public class CommonModEvents {
     public static void registerDataMapTypes(RegisterDataMapTypesEvent event) {
         event.register(CROP_GROW_TIMES);
         event.register(GROWTH_FERTILIZER_RATE);
-        event.register(MULTI_HARVEST_CROPS_DATA);
+        event.register(MULTI_HARVEST_CROPS);
         event.register(SPRINKLER_SIZE);
 
         event.register(HOE_AOE_RADIUS);
