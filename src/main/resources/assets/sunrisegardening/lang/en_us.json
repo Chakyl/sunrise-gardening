@@ -37,5 +37,6 @@
   "tooltip.sunrisegardening.regrow_time": " Regrow Time: %s days",
   "tooltip.sunrisegardening.single_harvest": " Single Harvest",
   "tooltip.sunrisegardening.multi_harvest": " Multi Harvest",
-  "config.jade.plugin_sunrisegardening.crop_info": "Crop Info"
+  "config.jade.plugin_sunrisegardening.crop_info": "Crop Info",
+  "tooltip.sunrisegardening.crop_info": "Growth: %s"
 }

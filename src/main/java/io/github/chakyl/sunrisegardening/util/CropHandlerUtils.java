@@ -17,6 +17,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.ribs.vintagedelight.block.GearoBerryBushBlock;
 import net.satisfy.vinery.core.block.GrapeBush;
@@ -30,6 +31,26 @@ import static io.github.chakyl.sunrisegardening.util.SeasonUtils.isGlassAboveBlo
 
 public class CropHandlerUtils {
 
+    public static int getMaxAgeFromAnyCrop(BlockState state, Block crop) {
+        if (crop instanceof CropBlock cropBlock) return cropBlock.getMaxAge();
+        if (crop instanceof NetherWartBlock || crop instanceof BonemealableBlock) {
+            if (state.hasProperty(BlockStateProperties.AGE_2)) {
+                return 2;
+            } else if (state.hasProperty(BlockStateProperties.AGE_3)) {
+                return 3;
+            } else if (state.hasProperty(BlockStateProperties.AGE_4)) {
+                return 4;
+            } else if (state.hasProperty(BlockStateProperties.AGE_5)) {
+                return 5;
+            } else if (state.hasProperty(BlockStateProperties.AGE_7)) {
+                return 7;
+            } else if (state.hasProperty(BlockStateProperties.AGE_15)) {
+                return 15;
+            }
+        }
+        SunriseGardening.LOGGER.warn("[Sunrise Gardening] Missing actual age for! " + crop.getDescriptionId() + "! Ask Chakyl for compat!");
+        return 1;
+    }
     public static int getFertilizerIncrease(int age, int maxAge, BlockState farmland) {
         int increase = 1;
         if (age == 0) {
