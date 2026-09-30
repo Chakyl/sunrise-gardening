@@ -36,7 +36,7 @@ public class CommonModEvents {
         event.register(MULTI_HARVEST_CROPS);
         event.register(SPRINKLER_SIZE);
 
-        event.register(HOE_AOE_RADIUS);
+        event.register(HOE_AOE_STYLE);
 
         event.register(PERMANENT_SEASON_BIOMES);
     }

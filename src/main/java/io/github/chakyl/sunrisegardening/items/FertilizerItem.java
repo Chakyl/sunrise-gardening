@@ -1,5 +1,6 @@
 package io.github.chakyl.sunrisegardening.items;
 
+import io.github.chakyl.sunrisegardening.blocks.GardenPotBlock;
 import io.github.chakyl.sunrisegardening.registry.SunriseRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -30,10 +31,10 @@ public class FertilizerItem extends Item {
             Player player = pContext.getPlayer();
             ItemStack stack = pContext.getItemInHand();
 
-            boolean targetingCrop = state.is(BlockTags.CROPS) && level.getBlockState(posClicked.below()).is(Blocks.FARMLAND);
+            boolean targetingCrop = state.is(BlockTags.CROPS) && level.getBlockState(posClicked.below()).is(SunriseRegistry.BlockRegistry.TILLED_SOIL);
 // TODO: Put that in the code block before
 // || level.getBlockState(posClicked).is(SunriseRegistry.BlockRegistry.TILLED_SAND.get()) || level.getBlockState(posClicked).getBlock() instanceof GardenPotBlock
-            if (level.getBlockState(posClicked).is(Blocks.FARMLAND) || targetingCrop) {
+            if (level.getBlockState(posClicked).is(SunriseRegistry.BlockRegistry.TILLED_SOIL) || targetingCrop) {
                 if (targetingCrop) {
                     posClicked = posClicked.below();
                     state = level.getBlockState(posClicked);
@@ -44,14 +45,14 @@ public class FertilizerItem extends Item {
 //                    } else {
 //                        return InteractionResult.FAIL;
 //                    }
-//                } else if (level.getBlockState(posClicked).getBlock() instanceof GardenPotBlock){
-//                    if (stack.is(SunriseRegistry.ItemRegistry.DELUXE_HYDRATING_FERTILIZER.get()) && !level.getBlockState(posClicked).getValue(GardenPotBlock.DELUXE)) {
-//                        level.setBlock(posClicked, level.getBlockState(posClicked).setValue(GardenPotBlock.DELUXE, true), 3);
-//                    } else {
-//                        return InteractionResult.FAIL;
-//                    }
-//                }
-
+//                } else
+                    if (level.getBlockState(posClicked).getBlock() instanceof GardenPotBlock){
+                    if (stack.is(SunriseRegistry.ItemRegistry.DELUXE_HYDRATING_FERTILIZER.get()) && !level.getBlockState(posClicked).getValue(GardenPotBlock.DELUXE)) {
+                        level.setBlock(posClicked, level.getBlockState(posClicked).setValue(GardenPotBlock.DELUXE, true), 3);
+                    } else {
+                        return InteractionResult.FAIL;
+                    }
+                }
                 else {
                     if (stack.is(SunriseRegistry.ItemRegistry.WEAK_FERTILIZER.get())) {
                         level.setBlock(posClicked, moisturizer(SunriseRegistry.BlockRegistry.WEAK_FERTILIZED_FARMLAND.value(), state), 3);

@@ -2,6 +2,7 @@ package io.github.chakyl.sunrisegardening.jade;
 
 
 import io.github.chakyl.sunrisegardening.SunriseGardening;
+import io.github.chakyl.sunrisegardening.blocks.TilledSoilBlock;
 import io.github.chakyl.sunrisegardening.dataattachments.DayData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -19,8 +20,7 @@ import snownee.jade.api.config.IPluginConfig;
 import snownee.jade.api.theme.IThemeHelper;
 
 import static io.github.chakyl.sunrisegardening.SunriseGardening.loc;
-import static io.github.chakyl.sunrisegardening.util.DayDataUtils.getDayData;
-import static io.github.chakyl.sunrisegardening.util.DayDataUtils.getTotalGrowTime;
+import static io.github.chakyl.sunrisegardening.util.DayDataUtils.*;
 
 public enum CropInfoProvider implements IBlockComponentProvider, IServerDataProvider<BlockAccessor> {
     INSTANCE;
@@ -62,10 +62,10 @@ public enum CropInfoProvider implements IBlockComponentProvider, IServerDataProv
     public void appendServerData(CompoundTag data, BlockAccessor accessor) {
         ServerLevel level = (ServerLevel) accessor.getLevel();
         BlockPos pos = accessor.getPosition();
-        final DayData dayData = getDayData(level, pos.below());
-        if (dayData != null) {
+        if (hasDayData(level, pos.below()) && !(accessor.getBlock() instanceof TilledSoilBlock)) {
+            final DayData dayData = getDayData(level, pos.below());
             data.putInt("days_grown", dayData.totalDaysGrown);
-            data.putInt("total_grow_time", getTotalGrowTime(accessor.getBlockState(), accessor.getBlock()));
+            data.putInt("total_grow_time", getTotalGrowTime(accessor.getBlockState(), accessor.getBlock(), level.getBlockState(pos.below())));
         }
     }
 

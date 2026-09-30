@@ -44,7 +44,6 @@ public class TooltipEvents {
 
             } else {
                 comp.add(tooltipIndex, Component.translatable("tooltip.sunrisegardening.harvest_info_hold").withStyle(ChatFormatting.DARK_GRAY));
-
             }
         }
     }

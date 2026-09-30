@@ -30,22 +30,6 @@ public class TilledSoilBlock extends FarmBlock {
     public TilledSoilBlock(Properties properties) {
         super(properties);
     }
-//    @Nullable
-//    @Override
-//    public BlockState getToolModifiedState(BlockState state, UseOnContext context, ToolAction toolAction, boolean simulate) {
-//        ItemStack itemStack = context.getItemInHand();
-//
-//        if (!itemStack.canPerformAction(toolAction)) {
-//            return null;
-//        }
-//
-//        if (ToolActions.SHOVEL_FLATTEN == toolAction && Config.shovelReverting) {
-//            return Blocks.DIRT.defaultBlockState();
-//        }
-//
-//        return super.getToolModifiedState(state, context, toolAction, simulate);
-//    }
-
 //    @Override
 //    public boolean canSustainPlant(BlockState state, BlockGetter world, BlockPos pos, Direction facing, net.minecraftforge.common.IPlantable plantable) {
 //        net.minecraftforge.common.PlantType plantType = plantable.getPlantType(world, pos.relative(facing));
@@ -97,7 +81,7 @@ public class TilledSoilBlock extends FarmBlock {
             return;
         }
         if (RNG.mc_ihundo(random, SunriseGardening.CONFIG.dailyDryChance.get())) {
-            if (!hydrated && state.is(SunriseTags.HYDRATING_FARMLAND) && crop.getBlock() instanceof CropBlock cropBlock && cropBlock.getAge(crop) < Math.floor((float) getTotalGrowTime(crop, cropBlock) / 2)) {
+            if (!hydrated && state.is(SunriseTags.HYDRATING_FARMLAND) && crop.getBlock() instanceof CropBlock cropBlock && cropBlock.getAge(crop) < Math.floor((float) getTotalGrowTime(crop, cropBlock, state) / 2)) {
                 hydrated = true;
             }
             if (state.is(SunriseTags.DELUXE_HYDRATING_FARMLAND)) {
@@ -141,8 +125,8 @@ public class TilledSoilBlock extends FarmBlock {
         if (!(cropBlockState.getBlock() instanceof CropBlock cropBlock)) return;
         if (cropBlock.isMaxAge(cropBlockState)) return;
 
-        syncDayData(dayData, cropBlockState, cropBlock);
-        int totalGrowTime = getTotalGrowTime(cropBlockState, cropBlock);
+        syncDayData(dayData, cropBlockState, cropBlock, state);
+        int totalGrowTime = getTotalGrowTime(cropBlockState, cropBlock, state);
         dayData.totalDaysGrown = (int) Math.min(daysPassed + dayData.totalDaysGrown, totalGrowTime);
 
         level.setBlock(cropPos, cropBlock.getStateForAge(getCalculatedAge(dayData, cropBlock.getMaxAge(), totalGrowTime)), 2);

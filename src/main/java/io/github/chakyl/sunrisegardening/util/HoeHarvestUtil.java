@@ -8,7 +8,7 @@ public class HoeHarvestUtil {
     // Used by ${HoeHarvestingModuleMixin} for hoe aoe radius
     public static int getHoeRadius(ItemStack hoe) {
         if (HoeHarvestingModule.isHoe(hoe)) {
-            Integer range = hoe.getItemHolder().getData(DataMapRegistry.HOE_AOE_RADIUS);
+            Integer range = hoe.getItemHolder().getData(DataMapRegistry.HOE_AOE_STYLE);
             return range == null ? 1 : range;
         }
         return 1;

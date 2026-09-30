@@ -54,7 +54,7 @@ public class CropHandlerUtils {
     public static int getFertilizerIncrease(int age, int maxAge, BlockState farmland) {
         int increase = 1;
         if (age == 0) {
-            Integer fertizerIncrease = farmland.getBlockHolder().getData(DataMapRegistry.GROWTH_FERTILIZER_RATE);
+            Float fertizerIncrease = farmland.getBlockHolder().getData(DataMapRegistry.GROWTH_FERTILIZER_RATE);
             if (fertizerIncrease != null) increase += fertizerIncrease;
         }
         return Math.min(increase, maxAge);

@@ -20,7 +20,6 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-// Override vanilla Farmland
 public class GardenPotBlock extends TilledSoilBlock  {
     public static final VoxelShape SHAPE = Shapes.or(
             box(1, 0, 1, 15, 10, 15),

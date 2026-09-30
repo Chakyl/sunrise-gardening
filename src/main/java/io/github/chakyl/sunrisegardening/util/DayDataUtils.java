@@ -9,11 +9,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.CropBlock;
-import net.minecraft.world.level.block.NetherWartBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.chunk.LevelChunk;
 
 import static io.github.chakyl.sunrisegardening.blocks.TilledSoilBlock.DAY_TICKS;
@@ -25,15 +22,29 @@ public class DayDataUtils {
         return level.getDayTime() / DAY_TICKS;
     }
 
+    public static Boolean hasDayData(ServerLevel level, BlockPos pos) {
+        LevelChunk chunk = level.getChunkAt(pos);
+        TilledBlockChunkData chunkData = chunk.getData(SunriseRegistry.AttachmentRegistry.TILLED_BLOCK_CHUNK_DATA);
+        return chunkData.dayDataMap.get(pos) != null;
+    }
+
     public static DayData getDayData(ServerLevel level, BlockPos pos) {
         LevelChunk chunk = level.getChunkAt(pos);
         TilledBlockChunkData chunkData = chunk.getData(SunriseRegistry.AttachmentRegistry.TILLED_BLOCK_CHUNK_DATA);
         return chunkData.dayDataMap.computeIfAbsent(pos, blockPos -> new DayData(DayDataUtils.getCurrentDay(level), 0));
     }
-    // TODO: handle fertilizers here?
-    public static int getTotalGrowTime(BlockState cropBlockState, Block cropBlock) {
+
+    public static int getFertilizedGrowTime(int growTime, BlockState farmland) {
+        float mult;
+        Float fertilizerIncrease = farmland.getBlockHolder().getData(DataMapRegistry.GROWTH_FERTILIZER_RATE);
+        if (fertilizerIncrease != null) mult = fertilizerIncrease;
+        else return growTime;
+        return (int) Math.floor(growTime * (mult < 1 ? 1 -  mult : mult));
+    }
+
+    public static int getTotalGrowTime(BlockState cropBlockState, Block cropBlock, BlockState farmland) {
         Integer growTime = cropBlockState.getBlockHolder().getData(DataMapRegistry.CROP_GROW_TIMES);
-        return growTime == null ? getMaxAgeFromAnyCrop(cropBlockState, cropBlock) : growTime;
+        return getFertilizedGrowTime((growTime == null ? getMaxAgeFromAnyCrop(cropBlockState, cropBlock) : growTime), farmland);
     }
 
     public static int getCalculatedAge(DayData dayData, int maxAge, int totalGrowTime) {
@@ -41,8 +52,8 @@ public class DayDataUtils {
     }
 
     // Makes the chunk attachment data reflect the blockstate age of the crop
-    public static void syncDayData(DayData dayData, BlockState cropBlockState, CropBlock cropBlock) {
-        int totalGrowTime = getTotalGrowTime(cropBlockState, cropBlock);
+    public static void syncDayData(DayData dayData, BlockState cropBlockState, CropBlock cropBlock, BlockState farmland) {
+        int totalGrowTime = getTotalGrowTime(cropBlockState, cropBlock, farmland);
         int maxAge = cropBlock.getMaxAge();
         int currentAge = cropBlock.getAge(cropBlockState);
         if (currentAge != getCalculatedAge(dayData, maxAge, totalGrowTime)) {

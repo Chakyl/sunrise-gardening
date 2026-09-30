@@ -26,13 +26,14 @@ public class SimpleHarvestModuleMixin {
     private static BlockState modifyReplantedBlock(BlockState original, Level level, BlockPos pos, BlockState inWorld) {
         return SimpleHarvestUtil.handleCropHarvest(level, pos, original);
     }
+
     @Inject(method = "click(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/phys/BlockHitResult;)Z", at = @At("TAIL"))
     private static void syncCropChunkData(Player player, InteractionHand hand, BlockPos pos, BlockHitResult pick, CallbackInfoReturnable<Boolean> cir) {        // Call your custom method here
         if (!player.level().isClientSide) {
             ServerLevel level = (ServerLevel) player.level();
             BlockState blockState = level.getBlockState(pos);
-            if (blockState.getBlock() instanceof  CropBlock cropBlock) {
-                syncDayData(getDayData(level, pos.below()), blockState, cropBlock);
+            if (blockState.getBlock() instanceof CropBlock cropBlock) {
+                syncDayData(getDayData(level, pos.below()), blockState, cropBlock, level.getBlockState(pos.below()));
             }
         }
     }

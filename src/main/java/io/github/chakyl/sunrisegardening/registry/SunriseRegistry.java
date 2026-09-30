@@ -83,11 +83,11 @@ public final class SunriseRegistry {
                 () -> new TilledSoilBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.FARMLAND)));
 
         public static final DeferredHolder<Block, Block> GARDEN_POT = registerWithItem("garden_pot",
-                () -> new GardenPotBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.TERRACOTTA)));
-        public static final DeferredHolder<Block, Block>  IRON_HANGING_GARDEN_POT = registerWithItem("iron_hanging_garden_pot",
-                () -> new GardenPotBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.TERRACOTTA)));
-        public static final DeferredHolder<Block, Block>  ROPE_HANGING_GARDEN_POT = registerWithItem("rope_hanging_garden_pot",
-                () -> new GardenPotBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.TERRACOTTA)));
+                () -> new GardenPotBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.TERRACOTTA).sound(SoundType.DECORATED_POT)));
+        public static final DeferredHolder<Block, Block>  IRON_HANGING_GARDEN_POT = registerWithoutItem("iron_hanging_garden_pot",
+                () -> new GardenPotBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.TERRACOTTA).sound(SoundType.DECORATED_POT)));
+        public static final DeferredHolder<Block, Block>  ROPE_HANGING_GARDEN_POT = registerWithoutItem("rope_hanging_garden_pot",
+                () -> new GardenPotBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.TERRACOTTA).sound(SoundType.DECORATED_POT)));
 
         public static final DeferredHolder<Block, Block> IRON_SPRINKLER = registerWithItem("iron_sprinkler",
                 () -> new SprinklerBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).sound(SoundType.COPPER).noOcclusion().strength(1F, 2.0F)));
@@ -100,6 +100,10 @@ public final class SunriseRegistry {
 
         private static boolean never(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
             return false;
+        }
+
+        private static DeferredHolder<Block, Block> registerWithoutItem(final String name, final Supplier<Block> supplier) {
+            return BLOCKS.register(name, supplier);
         }
 
         private static DeferredHolder<Block, Block> registerWithItem(final String name, final Supplier<Block> supplier) {

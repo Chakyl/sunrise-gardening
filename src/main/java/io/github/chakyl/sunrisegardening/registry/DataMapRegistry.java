@@ -28,14 +28,14 @@ public class DataMapRegistry {
             Codec.INT
     ).build();
 
-    public static final DataMapType<Block, Integer> GROWTH_FERTILIZER_RATE = DataMapType.builder(
+    public static final DataMapType<Block, Float> GROWTH_FERTILIZER_RATE = DataMapType.builder(
             loc("growth_fertilizer_rate"),
             Registries.BLOCK,
-            Codec.INT
+            Codec.FLOAT
     ).build();
 
-    public static final DataMapType<Item, Integer> HOE_AOE_RADIUS = DataMapType.builder(
-            loc("hoe_aoe_radius"),
+    public static final DataMapType<Item, Integer> HOE_AOE_STYLE = DataMapType.builder(
+            loc("hoe_aoe_style"),
             Registries.ITEM,
             Codec.INT
     ).build();
