@@ -6,7 +6,10 @@ import io.github.chakyl.sunrisegardening.SunriseGardening;
 import io.github.chakyl.sunrisegardening.dataattachments.DayData;
 import io.github.chakyl.sunrisegardening.registry.SunriseRegistry;
 import io.github.chakyl.sunrisegardening.registry.SunriseTags;
+import io.github.chakyl.sunrisegardening.util.CropHandlerUtils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -19,9 +22,13 @@ import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.material.Fluids;
+import sereneseasons.init.ModConfig;
+import sereneseasons.init.ModFertility;
 
 import static io.github.chakyl.sunrisegardening.util.CropHandlerUtils.isNearSprinkler;
 import static io.github.chakyl.sunrisegardening.util.DayDataUtils.*;
+import static io.github.chakyl.sunrisegardening.util.SeasonUtils.canGrowInSeason;
+import static io.github.chakyl.sunrisegardening.util.SeasonUtils.isGlassAboveBlock;
 
 public class TilledSoilBlock extends FarmBlock {
     // TODO: config value
@@ -121,16 +128,17 @@ public class TilledSoilBlock extends FarmBlock {
     public static void processDailyLogic(ServerLevel level, BlockPos pos, BlockState state, long daysPassed, DayData dayData) {
         BlockPos cropPos = pos.above();
         BlockState cropBlockState = level.getBlockState(pos.above());
-
+        boolean canGrow = canGrowInSeason(level, state, cropBlockState, cropPos);
+        if (!canGrow) return;
         if (!(cropBlockState.getBlock() instanceof CropBlock cropBlock)) return;
         if (cropBlock.isMaxAge(cropBlockState)) return;
 
         syncDayData(dayData, cropBlockState, cropBlock, state);
         int totalGrowTime = getTotalGrowTime(cropBlockState, cropBlock, state);
         dayData.totalDaysGrown = (int) Math.min(daysPassed + dayData.totalDaysGrown, totalGrowTime);
-
-        level.setBlock(cropPos, cropBlock.getStateForAge(getCalculatedAge(dayData, cropBlock.getMaxAge(), totalGrowTime)), 2);
+        CropHandlerUtils.growCrop(level, dayData, totalGrowTime, cropBlockState, cropPos, state, false);
     }
+
 
     @Override
     protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {

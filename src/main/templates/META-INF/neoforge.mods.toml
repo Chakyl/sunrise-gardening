@@ -53,15 +53,12 @@ Sunny Farming!
 [[mixins]]
 config="${mod_id}.mixins.json"
 
-# The [[accessTransformers]] block allows you to declare where your AT file is.
-# If this block is omitted, a fallback attempt will be made to load an AT from META-INF/accesstransformer.cfg
-#[[accessTransformers]]
-#file="META-INF/accesstransformer.cfg"
-
-# The coremods config file path is not configurable and is always loaded from META-INF/coremods.json
-
-
-
+[[dependencies.${mod_id}]]
+modId="libtooltips"
+type="required"
+versionRange="[2.3.2,)"
+ordering="AFTER"
+side="CLIENT"
 # Features are specific properties of the game environment, that you may want to declare you require. This example declares
 # that your mod requires GL version 3.2 or higher. Other features will be added. They are side aware so declaring this won't
 # stop your mod loading on the server for example.

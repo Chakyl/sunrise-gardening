@@ -1,7 +1,9 @@
 package io.github.chakyl.sunrisegardening.items;
 
 import io.github.chakyl.sunrisegardening.blocks.GardenPotBlock;
+import io.github.chakyl.sunrisegardening.dataattachments.DayData;
 import io.github.chakyl.sunrisegardening.registry.SunriseRegistry;
+import io.github.chakyl.sunrisegardening.registry.SunriseTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -13,9 +15,13 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+
+import static io.github.chakyl.sunrisegardening.util.DayDataUtils.getDayData;
+import static io.github.chakyl.sunrisegardening.util.DayDataUtils.syncDayData;
+import static io.github.chakyl.sunrisegardening.util.SeasonUtils.canGrowInSeason;
 
 public class FertilizerItem extends Item {
     public FertilizerItem(Properties pProperties) {
@@ -46,20 +52,23 @@ public class FertilizerItem extends Item {
 //                        return InteractionResult.FAIL;
 //                    }
 //                } else
-                    if (level.getBlockState(posClicked).getBlock() instanceof GardenPotBlock){
+                if (level.getBlockState(posClicked).getBlock() instanceof GardenPotBlock) {
                     if (stack.is(SunriseRegistry.ItemRegistry.DELUXE_HYDRATING_FERTILIZER.get()) && !level.getBlockState(posClicked).getValue(GardenPotBlock.DELUXE)) {
                         level.setBlock(posClicked, level.getBlockState(posClicked).setValue(GardenPotBlock.DELUXE, true), 3);
                     } else {
                         return InteractionResult.FAIL;
                     }
-                }
-                else {
-                    if (stack.is(SunriseRegistry.ItemRegistry.WEAK_FERTILIZER.get())) {
-                        level.setBlock(posClicked, moisturizer(SunriseRegistry.BlockRegistry.WEAK_FERTILIZED_FARMLAND.value(), state), 3);
-                    } else if (stack.is(SunriseRegistry.ItemRegistry.STRONG_FERTILIZER.get())) {
-                        level.setBlock(posClicked, moisturizer(SunriseRegistry.BlockRegistry.STRONG_FERTILIZED_FARMLAND.value(), state), 3);
-                    } else if (stack.is(SunriseRegistry.ItemRegistry.HYPER_FERTILIZER.get())) {
-                        level.setBlock(posClicked, moisturizer(SunriseRegistry.BlockRegistry.HYPER_FERTILIZED_FARMLAND.value(), state), 3);
+                } else {
+                    if (stack.is(SunriseTags.SPEED_FERTILIZER)) {
+                        if (stack.is(SunriseRegistry.ItemRegistry.WEAK_FERTILIZER.get())) {
+                            level.setBlock(posClicked, moisturizer(SunriseRegistry.BlockRegistry.WEAK_FERTILIZED_FARMLAND.value(), state), 3);
+                        } else if (stack.is(SunriseRegistry.ItemRegistry.STRONG_FERTILIZER.get())) {
+                            level.setBlock(posClicked, moisturizer(SunriseRegistry.BlockRegistry.STRONG_FERTILIZED_FARMLAND.value(), state), 3);
+                        } else if (stack.is(SunriseRegistry.ItemRegistry.HYPER_FERTILIZER.get())) {
+                            level.setBlock(posClicked, moisturizer(SunriseRegistry.BlockRegistry.HYPER_FERTILIZED_FARMLAND.value(), state), 3);
+                        }
+                        BlockState cropBlockState = level.getBlockState(posClicked.above());
+                        syncDayData(getDayData(level, posClicked), cropBlockState, cropBlockState.getBlock(), state);
                     } else if (stack.is(SunriseRegistry.ItemRegistry.HYDRATING_FERTILIZER.get())) {
                         level.setBlock(posClicked, moisturizer(SunriseRegistry.BlockRegistry.HYDRATING_FARMLAND.value(), state), 3);
                     } else if (stack.is(SunriseRegistry.ItemRegistry.DELUXE_HYDRATING_FERTILIZER.get())) {

@@ -1,6 +1,5 @@
 package io.github.chakyl.sunrisegardening.util;
 
-import io.github.chakyl.sunrisegardening.SunriseGardening;
 import io.github.chakyl.sunrisegardening.dataattachments.DayData;
 import io.github.chakyl.sunrisegardening.dataattachments.TilledBlockChunkData;
 import io.github.chakyl.sunrisegardening.registry.DataMapRegistry;
@@ -39,7 +38,7 @@ public class DayDataUtils {
         Float fertilizerIncrease = farmland.getBlockHolder().getData(DataMapRegistry.GROWTH_FERTILIZER_RATE);
         if (fertilizerIncrease != null) mult = fertilizerIncrease;
         else return growTime;
-        return (int) Math.floor(growTime * (mult < 1 ? 1 -  mult : mult));
+        return (int) Math.floor(growTime * (mult < 1 ? 1 - mult : mult));
     }
 
     public static int getTotalGrowTime(BlockState cropBlockState, Block cropBlock, BlockState farmland) {
@@ -52,10 +51,10 @@ public class DayDataUtils {
     }
 
     // Makes the chunk attachment data reflect the blockstate age of the crop
-    public static void syncDayData(DayData dayData, BlockState cropBlockState, CropBlock cropBlock, BlockState farmland) {
+    public static void syncDayData(DayData dayData, BlockState cropBlockState, Block cropBlock, BlockState farmland) {
         int totalGrowTime = getTotalGrowTime(cropBlockState, cropBlock, farmland);
-        int maxAge = cropBlock.getMaxAge();
-        int currentAge = cropBlock.getAge(cropBlockState);
+        int maxAge = cropBlock instanceof CropBlock ? ((CropBlock) cropBlock).getMaxAge() : 7;
+        int currentAge = cropBlock instanceof CropBlock ? ((CropBlock) cropBlock).getAge(cropBlockState) : 1;
         if (currentAge != getCalculatedAge(dayData, maxAge, totalGrowTime)) {
             dayData.totalDaysGrown = Math.max(0, (currentAge * totalGrowTime + maxAge - 1) / maxAge);
         }

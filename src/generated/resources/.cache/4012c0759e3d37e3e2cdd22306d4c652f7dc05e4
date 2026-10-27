@@ -1,0 +1,5 @@
+// 1.21.1	2026-10-27T16:47:09.8608079	Tags for minecraft:item mod id sunrisegardening
+b429a5f3892ff05d494096e85baf4dbc3933396e data/sunrisegardening/tags/item/fertilizer.json
+6f1369c559da40e8c4e0282985b3dc7fceec5c3d data/sunrisegardening/tags/item/hydrating_fertilizer.json
+270af25ecef854ee0ab1b313601bac53ec60349b data/sunrisegardening/tags/item/quality_fertilizer.json
+e1fcb8210bfd294e884ef9d071563c4973d28e98 data/sunrisegardening/tags/item/speed_fertilizer.json

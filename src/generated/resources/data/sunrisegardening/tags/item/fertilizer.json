@@ -1,0 +1,13 @@
+{
+  "values": [
+    "sunrisegardening:bountiful_fertilizer",
+    "sunrisegardening:hydrating_fertilizer",
+    "sunrisegardening:deluxe_hydrating_fertilizer",
+    "sunrisegardening:low_quality_fertilizer",
+    "sunrisegardening:high_quality_fertilizer",
+    "sunrisegardening:pristine_quality_fertilizer",
+    "sunrisegardening:weak_fertilizer",
+    "sunrisegardening:strong_fertilizer",
+    "sunrisegardening:hyper_fertilizer"
+  ]
+}

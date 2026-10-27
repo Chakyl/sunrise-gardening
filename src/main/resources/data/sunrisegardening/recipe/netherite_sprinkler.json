@@ -7,7 +7,7 @@
     "item": "sunrisegardening:diamond_sprinkler"
   },
   "result": {
-    "item": "sunrisegardening:netherite_sprinkler"
+    "id": "sunrisegardening:netherite_sprinkler"
   },
   "template": {
     "item": "minecraft:netherite_upgrade_smithing_template"

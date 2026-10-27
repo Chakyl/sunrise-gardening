@@ -1,32 +1,19 @@
 package io.github.chakyl.sunrisegardening.util;
 
-import com.baisylia.culturaldelights.block.custom.CornBlock;
-import com.baisylia.culturaldelights.block.custom.CornUpperBlock;
-import com.github.ysbbbbbb.kaleidoscopecookery.block.crop.RiceCropBlock;
-import com.rosemods.windswept.common.block.WildBerryBushBlock;
 import io.github.chakyl.sunrisegardening.SunriseGardening;
+import io.github.chakyl.sunrisegardening.dataattachments.DayData;
 import io.github.chakyl.sunrisegardening.registry.DataMapRegistry;
 import io.github.chakyl.sunrisegardening.registry.SunriseTags;
 import net.mehvahdjukaar.hauntedharvest.blocks.CornBaseBlock;
 import net.mehvahdjukaar.supplementaries.common.block.blocks.FlaxBlock;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.neoforged.neoforge.registries.NeoForgeRegistries;
-import net.ribs.vintagedelight.block.GearoBerryBushBlock;
-import net.satisfy.vinery.core.block.GrapeBush;
-import sereneseasons.init.ModConfig;
-import sereneseasons.init.ModFertility;
-import vectorwing.farmersdelight.common.block.BuddingBushBlock;
-import vectorwing.farmersdelight.common.block.RiceBlock;
 
-import static io.github.chakyl.sunrisegardening.util.SeasonUtils.isGlassAboveBlock;
+import static io.github.chakyl.sunrisegardening.util.DayDataUtils.getCalculatedAge;
 
 
 public class CropHandlerUtils {
@@ -48,14 +35,15 @@ public class CropHandlerUtils {
                 return 15;
             }
         }
-        SunriseGardening.LOGGER.warn("[Sunrise Gardening] Missing actual age for! " + crop.getDescriptionId() + "! Ask Chakyl for compat!");
+        SunriseGardening.LOGGER.warn("Missing actual age for: " + crop.getDescriptionId() + "! Ask Chakyl for compat!");
         return 1;
     }
+
     public static int getFertilizerIncrease(int age, int maxAge, BlockState farmland) {
         int increase = 1;
         if (age == 0) {
-            Float fertizerIncrease = farmland.getBlockHolder().getData(DataMapRegistry.GROWTH_FERTILIZER_RATE);
-            if (fertizerIncrease != null) increase += fertizerIncrease;
+            Float fertilizerIncrease = farmland.getBlockHolder().getData(DataMapRegistry.GROWTH_FERTILIZER_RATE);
+            if (fertilizerIncrease != null) increase += fertilizerIncrease;
         }
         return Math.min(increase, maxAge);
     }
@@ -67,65 +55,60 @@ public class CropHandlerUtils {
             level.setBlock(pos, bushBlock.defaultBlockState().setValue(SweetBerryBushBlock.AGE, bushAge + getFertilizerIncrease(bushAge, SweetBerryBushBlock.MAX_AGE, farmland)), 2);
     }
 
-    public static void handleCropGrowth(BlockState crop, ServerLevel level, BlockPos abovePos, BlockState farmland, RandomSource random) {
+    public static void handleCropGrowth(ServerLevel level, DayData dayData, int totalGrowTime, BlockState crop, BlockPos cropPos, BlockState farmland) {
         Block aboveBlock = crop.getBlock();
-        int growthAmount;
-        BlockState newState;
         if (crop.is(SunriseTags.NOT_DAILY)) return;
         if (aboveBlock instanceof CropBlock cropBlock) {
-            handleCropBlock(crop, level, abovePos, farmland, random, cropBlock, aboveBlock);
+            handleCropBlock(level, dayData, totalGrowTime, crop, cropPos, farmland, cropBlock, aboveBlock);
         } else if (aboveBlock instanceof SweetBerryBushBlock sweetBerryBushBlock) {
-            growSweetBerryBush(level, sweetBerryBushBlock, abovePos, farmland);
+            growSweetBerryBush(level, sweetBerryBushBlock, cropPos, farmland);
         }
 //        else if (SunriseGardening.WINDSWEPT_INSTALLED && aboveBlock instanceof WildBerryBushBlock) {
-//            growWildBerryBush(level, aboveBlock, abovePos, farmland);
+//            growWildBerryBush(level, aboveBlock, cropPos, farmland);
 //        } else if (SunriseGardening.VINERY_INSTALLED && aboveBlock instanceof GrapeBush) {
-//            growGrapeBush(level, aboveBlock, abovePos, farmland);
+//            growGrapeBush(level, aboveBlock, cropPos, farmland);
 //        } else if (SunriseGardening.VINTAGEDELIGHT_INSTALLED && aboveBlock instanceof GearoBerryBushBlock) {
-//            growGearoBerryBush(level, aboveBlock, abovePos, farmland);
+//            growGearoBerryBush(level, aboveBlock, cropPos, farmland);
 //        } else if (SunriseGardening.CULTURAL_DELIGHTS_INSTALLED && aboveBlock instanceof CornBlock) {
-//            growCulturalDelightCorn(level, aboveBlock, abovePos, CornBlock.AGE, CornUpperBlock.AGE, farmland);
+//            growCulturalDelightCorn(level, aboveBlock, cropPos, CornBlock.AGE, CornUpperBlock.AGE, farmland);
 //        } else if (SunriseGardening.FARMERS_DELIGHT_INSTALLED && aboveBlock instanceof RiceBlock) {
-//            growFarmersDelightRice(level, aboveBlock, abovePos, farmland);
+//            growFarmersDelightRice(level, aboveBlock, cropPos, farmland);
 //        }
 //        else if (aboveBlock instanceof CustomStemBlock stemBlock) {
 //            int stemAge = stemBlock.getAge(crop);
 //            if (stemAge == 7) {
-//                stemBlock.placeFruit(level, abovePos);
+//                stemBlock.placeFruit(level, cropPos);
 //            } else {
 //                growthAmount = getFertilizerIncrease(stemAge, 7, farmland);
 //                newState = stemBlock.getStateForAge(stemAge + growthAmount);
-//                level.setBlock(abovePos, newState, 2);
+//                level.setBlock(cropPos, newState, 2);
 //            }
 //        } else if (aboveBlock instanceof PitcherCropBlock pitcherCropBlock) {
-//            int pitcherAge = level.getBlockState(abovePos).getValue(PitcherCropBlock.AGE);
+//            int pitcherAge = level.getBlockState(cropPos).getValue(PitcherCropBlock.AGE);
 //            growthAmount = getFertilizerIncrease(pitcherAge, PitcherCropBlock.MAX_AGE, farmland);
 //            for (int i = 0; i < growthAmount; i++) {
-//                pitcherCropBlock.performBonemeal(level, random, abovePos, level.getBlockState(abovePos));
+//                pitcherCropBlock.performBonemeal(level, random, cropPos, level.getBlockState(cropPos));
 //            }
 //        }
-        else if (SunriseGardening.FARMERS_DELIGHT_INSTALLED && aboveBlock instanceof BuddingBushBlock bushBlock) {
-            bushBlock.growPastMaxAge(crop, level, abovePos, random);
-        }
+//        else if (SunriseGardening.FARMERS_DELIGHT_INSTALLED && aboveBlock instanceof BuddingBushBlock bushBlock) {
+//            bushBlock.growPastMaxAge(crop, level, cropPos, level.getRandom());
+//        }
     }
 
-    private static void handleCropBlock(BlockState crop, ServerLevel level, BlockPos abovePos, BlockState farmland, RandomSource random, CropBlock cropBlock, Block aboveBlock) {
-        BlockState newState;
-        int growthAmount;
+    private static void handleCropBlock(ServerLevel level, DayData dayData, int totalGrowTime, BlockState crop, BlockPos cropPos, BlockState farmland, CropBlock cropBlock, Block aboveBlock) {
+
         if (SunriseGardening.SUPPLEMENTARIES_INSTALLED && cropBlock instanceof FlaxBlock flaxBlock) {
-            flaxBlock.growCropBy(level, abovePos, crop, getFertilizerIncrease(cropBlock.getAge(crop), cropBlock.getMaxAge(), farmland));
+            flaxBlock.growCropBy(level, cropPos, crop, getFertilizerIncrease(cropBlock.getAge(crop), cropBlock.getMaxAge(), farmland));
         } else if (SunriseGardening.HAUNTED_HARVEST_INSTALLED && cropBlock instanceof CornBaseBlock cornBaseBlock) {
-            cornBaseBlock.growCropBy(level, abovePos, crop, getFertilizerIncrease(cropBlock.getAge(crop), cropBlock.getMaxAge(), farmland));
+            cornBaseBlock.growCropBy(level, cropPos, crop, getFertilizerIncrease(cropBlock.getAge(crop), cropBlock.getMaxAge(), farmland));
         }
 //        else if (SunriseGardening.KALEIDOSCOPE_COOKERY_INSTALLED && aboveBlock instanceof RiceCropBlock) {
-//            growKaleidoscopeRice(level, aboveBlock, abovePos);
+//            growKaleidoscopeRice(level, aboveBlock, cropPos);
 //        }
         else if (!cropBlock.isMaxAge(crop)) {
-            growthAmount = getFertilizerIncrease(cropBlock.getAge(crop), cropBlock.getMaxAge(), farmland);
-            newState = cropBlock.getStateForAge(cropBlock.getAge(crop) + growthAmount);
-            level.setBlock(abovePos, newState, 2);
+            level.setBlock(cropPos, cropBlock.getStateForAge(getCalculatedAge(dayData, cropBlock.getMaxAge(), totalGrowTime)), 2);
 //            if (SunriseGardening.FARMERS_DELIGHT_INSTALLED && isVineLike(cropBlock)) {
-//                growVineLikeCrop(level, cropBlock, crop, abovePos, random);
+//                growVineLikeCrop(level, cropBlock, crop, cropPos, random);
 //            }
         }
     }
@@ -151,14 +134,14 @@ public class CropHandlerUtils {
         }
     }
 
-    public static void handleSandCropGrowth(BlockState crop, ServerLevel level, BlockPos abovePos, BlockState farmland, RandomSource random) {
+    public static void handleSandCropGrowth(BlockState crop, ServerLevel level, BlockPos abovePos, BlockState farmland) {
         Block aboveBlock = crop.getBlock();
         if (aboveBlock instanceof CactusBlock cactusBlock) {
             growCactusLike(level, cactusBlock, abovePos, farmland);
         } else if (aboveBlock instanceof SugarCaneBlock sugarCaneBlock) {
             // TODO: Either add an access widener or just redo logic
 //            if (sugarCaneBlock.canSurvive(crop, level, abovePos))
-                growCactusLike(level, sugarCaneBlock, abovePos, farmland);
+            growCactusLike(level, sugarCaneBlock, abovePos, farmland);
         }
     }
 
@@ -178,33 +161,23 @@ public class CropHandlerUtils {
         return false;
     }
 
-    public static void growCropsInRadius(ServerLevel level, BlockPos centerPos, RandomSource random, int radius) {
-        for (BlockPos pos : BlockPos.betweenClosed(new BlockPos(centerPos.getX() - radius, centerPos.getY(), centerPos.getZ() - radius), new BlockPos(
-                centerPos.getX() + radius,
-                centerPos.getY(),
-                centerPos.getZ() + radius)
-        )) {
-            growCrop(level.getBlockState(pos), level, pos, level.getBlockState(centerPos.below()), random, false);
-        }
-    }
+//    public static void growCropsInRadius(ServerLevel level, BlockPos centerPos, int radius) {
+//        for (BlockPos pos : BlockPos.betweenClosed(new BlockPos(centerPos.getX() - radius, centerPos.getY(), centerPos.getZ() - radius), new BlockPos(
+//                centerPos.getX() + radius,
+//                centerPos.getY(),
+//                centerPos.getZ() + radius)
+//        )) {
+//            growCrop(level, level.getBlockState(pos), pos, level.getBlockState(centerPos.below()),false);
+//        }
+//    }
 
-    public static void growCrop(BlockState crop, ServerLevel level, BlockPos abovePos, BlockState farmland, RandomSource random, Boolean sandy) {
-        growCrop(crop, level, abovePos, farmland, random, sandy, false);
-    }
+    public static void growCrop(ServerLevel level, DayData dayData, int totalGrowTime, BlockState crop, BlockPos cropPos, BlockState farmland, Boolean sandy) {
 
-    public static void growCrop(BlockState crop, ServerLevel level, BlockPos abovePos, BlockState farmland, RandomSource random, Boolean sandy, Boolean gardenPot) {
-        boolean canGrow = true;
-        if (SunriseGardening.SERENE_SEASONS_INSTALLED) {
-            ResourceLocation fertileKey = BuiltInRegistries.BLOCK.getKey(crop.getBlock());
-            boolean fertile = ModFertility.isCropFertile(fertileKey.toString(), level, abovePos);
-            canGrow = (!ModConfig.fertility.seasonalCrops || fertile || isGlassAboveBlock(level, abovePos) || (gardenPot && !level.canSeeSky(abovePos.above())));
+        if (sandy) {
+            handleSandCropGrowth(crop, level, cropPos, farmland);
+        } else {
+            handleCropGrowth(level, dayData, totalGrowTime, crop, cropPos, farmland);
         }
-        if (canGrow) {
-            if (sandy) {
-                handleSandCropGrowth(crop, level, abovePos, farmland, random);
-            } else {
-                handleCropGrowth(crop, level, abovePos, farmland, random);
-            }
-        }
+
     }
 }

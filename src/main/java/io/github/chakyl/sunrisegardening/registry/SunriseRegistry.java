@@ -84,9 +84,9 @@ public final class SunriseRegistry {
 
         public static final DeferredHolder<Block, Block> GARDEN_POT = registerWithItem("garden_pot",
                 () -> new GardenPotBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.TERRACOTTA).sound(SoundType.DECORATED_POT)));
-        public static final DeferredHolder<Block, Block>  IRON_HANGING_GARDEN_POT = registerWithoutItem("iron_hanging_garden_pot",
+        public static final DeferredHolder<Block, Block> IRON_HANGING_GARDEN_POT = registerWithoutItem("iron_hanging_garden_pot",
                 () -> new GardenPotBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.TERRACOTTA).sound(SoundType.DECORATED_POT)));
-        public static final DeferredHolder<Block, Block>  ROPE_HANGING_GARDEN_POT = registerWithoutItem("rope_hanging_garden_pot",
+        public static final DeferredHolder<Block, Block> ROPE_HANGING_GARDEN_POT = registerWithoutItem("rope_hanging_garden_pot",
                 () -> new GardenPotBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.TERRACOTTA).sound(SoundType.DECORATED_POT)));
 
         public static final DeferredHolder<Block, Block> IRON_SPRINKLER = registerWithItem("iron_sprinkler",
