@@ -10,6 +10,10 @@
   "block.sunrisegardening.high_quality_fertilized_farmland": "High Quality Fertilized Farmland",
   "block.sunrisegardening.pristine_quality_fertilized_farmland": "Pristine Quality Fertilized Farmland",
   "block.sunrisegardening.bountiful_fertilized_farmland": "Bountiful Fertilized Farmland",
+  "block.sunrisegardening.greenhouse_glass": "Greenhouse Glass",
+  "block.sunrisegardening.greenhouse_glass_stairs": "Greenhouse Glass Stairs",
+  "block.sunrisegardening.greenhouse_glass_slab": "Greenhouse Glass Slab",
+  "block.sunrisegardening.greenhouse_glass_pane": "Greenhouse Glass Pane",
 
   "item.sunrisegardening.weak_fertilizer": "Weak Fertilizer",
   "item.sunrisegardening.strong_fertilizer": "Strong Fertilizer",

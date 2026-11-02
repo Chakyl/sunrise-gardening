@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "sunrisegardening:block/greenhouse_glass_slab"
+    },
+    "type=double": {
+      "model": "sunrisegardening:block/greenhouse_glass"
+    },
+    "type=top": {
+      "model": "sunrisegardening:block/greenhouse_glass_slab_top"
+    }
+  }
+}

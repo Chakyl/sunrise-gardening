@@ -11,6 +11,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -18,6 +19,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.attachment.AttachmentType;
@@ -97,6 +99,16 @@ public final class SunriseRegistry {
                 () -> new SprinklerBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).sound(SoundType.COPPER).noOcclusion().strength(1F, 2.0F)));
         public static final DeferredHolder<Block, Block> NETHERITE_SPRINKLER = registerWithItem("netherite_sprinkler",
                 () -> new SprinklerBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).sound(SoundType.COPPER).noOcclusion().strength(1F, 2.0F)));
+
+        public static final DeferredHolder<Block, Block> GREENHOUSE_GLASS = registerWithItem("greenhouse_glass",
+                () -> new TransparentBlock(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.HAT).strength(0.5F).sound(SoundType.GLASS).noOcclusion().isValidSpawn(Blocks::never).isRedstoneConductor(BlockRegistry::never).isSuffocating(BlockRegistry::never).isViewBlocking(BlockRegistry::never)));
+        public static final DeferredHolder<Block, Block> GREENHOUSE_GLASS_STAIRS= registerWithItem("greenhouse_glass_stairs",
+                () -> new StairBlock(GREENHOUSE_GLASS.get().defaultBlockState(), BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.HAT).strength(0.5F).sound(SoundType.GLASS).noOcclusion().isValidSpawn(Blocks::never).isRedstoneConductor(BlockRegistry::never).isSuffocating(BlockRegistry::never).isViewBlocking(BlockRegistry::never)));
+        public static final DeferredHolder<Block, Block> GREENHOUSE_GLASS_SLAB = registerWithItem("greenhouse_glass_slab",
+                () -> new SlabBlock(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.HAT).strength(0.5F).sound(SoundType.GLASS).noOcclusion().isValidSpawn(Blocks::never).isRedstoneConductor(BlockRegistry::never).isSuffocating(BlockRegistry::never).isViewBlocking(BlockRegistry::never)));
+
+        public static final DeferredHolder<Block, Block> GREENHOUSE_GLASS_PANE = registerWithItem("greenhouse_glass_pane",
+                () -> new IronBarsBlock(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.HAT).strength(0.3F).sound(SoundType.GLASS).noOcclusion()));
 
         private static boolean never(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
             return false;

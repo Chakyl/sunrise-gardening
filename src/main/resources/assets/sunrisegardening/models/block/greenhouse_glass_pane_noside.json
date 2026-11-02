@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_glass_pane_noside",
+  "textures": {
+    "pane": "sunrisegardening:block/greenhouse_glass"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_glass_pane_post",
+  "textures": {
+    "pane": "sunrisegardening:block/greenhouse_glass",
+    "edge": "sunrisegardening:block/greenhouse_glass_pane_top"
+  }
+}

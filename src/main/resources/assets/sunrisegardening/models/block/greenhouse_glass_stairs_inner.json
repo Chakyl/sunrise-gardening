@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "sunrisegardening:block/greenhouse_glass",
+    "side": "sunrisegardening:block/greenhouse_glass",
+    "top": "sunrisegardening:block/greenhouse_glass"
+  }
+}

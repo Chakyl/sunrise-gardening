@@ -37,13 +37,20 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         generateFarmlandTags(SunriseRegistry.BlockRegistry.WEAK_FERTILIZED_FARMLAND, SunriseTags.WEAK_FERTILIZED_FARMLAND);
         generateFarmlandTags(SunriseRegistry.BlockRegistry.STRONG_FERTILIZED_FARMLAND, SunriseTags.STRONG_FERTILIZED_FARMLAND);
         generateFarmlandTags(SunriseRegistry.BlockRegistry.HYPER_FERTILIZED_FARMLAND, SunriseTags.HYPER_FERTILIZED_FARMLAND);
+
         generateGardenPotTags(SunriseRegistry.BlockRegistry.GARDEN_POT);
         generateGardenPotTags(SunriseRegistry.BlockRegistry.ROPE_HANGING_GARDEN_POT);
         generateGardenPotTags(SunriseRegistry.BlockRegistry.IRON_HANGING_GARDEN_POT);
+
         generateSprinklerTag(SunriseRegistry.BlockRegistry.IRON_SPRINKLER);
         generateSprinklerTag(SunriseRegistry.BlockRegistry.GOLD_SPRINKLER);
         generateSprinklerTag(SunriseRegistry.BlockRegistry.DIAMOND_SPRINKLER);
         generateSprinklerTag(SunriseRegistry.BlockRegistry.NETHERITE_SPRINKLER);
+
+        generateGreenhouseGlassTag(SunriseRegistry.BlockRegistry.GREENHOUSE_GLASS);
+        generateGreenhouseGlassTag(SunriseRegistry.BlockRegistry.GREENHOUSE_GLASS_STAIRS);
+        generateGreenhouseGlassTag(SunriseRegistry.BlockRegistry.GREENHOUSE_GLASS_SLAB);
+        generateGreenhouseGlassTag(SunriseRegistry.BlockRegistry.GREENHOUSE_GLASS_PANE);
     }
 
     public void generateFarmlandTags(DeferredHolder<Block, Block> block, TagKey<Block> farmlandTag) {
@@ -66,5 +73,9 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
     public void generateSprinklerTag(DeferredHolder<Block, Block> block) {
         tag(SunriseTags.SPRINKLER).add(block.get());
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(block.get());
+    }
+
+    public void generateGreenhouseGlassTag(DeferredHolder<Block, Block> block) {
+        tag(SunriseTags.GREENHOUSE_GLASS).add(block.get());
     }
 }
