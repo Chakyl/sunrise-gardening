@@ -17,11 +17,13 @@ public class SunriseConfig {
     public final ModConfigSpec.IntValue dailyDryChance;
     public final ModConfigSpec.IntValue dailyCropDecayChance;
     public final ModConfigSpec.IntValue dailyCroplessDecayChance;
+    // Crop Growth
+    public final ModConfigSpec.BooleanValue strictGreenhouses;
+    public final ModConfigSpec.BooleanValue needsSun;
     // Etc?
     public final ModConfigSpec.BooleanValue noTrample;
     public final ModConfigSpec.BooleanValue sturdyFarmland;
     public final ModConfigSpec.BooleanValue shovelReverting;
-    public final ModConfigSpec.BooleanValue strictGreenhouses;
 
     public SunriseConfig(final ModConfigSpec.Builder builder) {
         builder.comment("");
@@ -56,6 +58,15 @@ public class SunriseConfig {
         dailyCroplessDecayChance = builder.comment("The chance that dry farmland will decay into dirt if it DOES NOT HAVE a crop on top of it").defineInRange("daily_cropless_decay_chance", 25, 0, 100);
 
         builder.comment("");
+        builder.comment("  ~~~ [ Crop Growth ] ~~~");
+        builder.comment("");
+
+        strictGreenhouses = builder.comment("Crops will not factor in greenhouse glass if farmland (#dewdrop:waterable) is between them and the glass").define("strict_greenhouses", true);
+
+        needsSun = builder.comment("Crops need sky access to grow. If greenhouse glass is used, the glass needs sky access. Transparent blocks do not block sky access").define("needs_sun", true);
+
+
+        builder.comment("");
         builder.comment("  ~~~ [ Misc Configs] ~~~");
         builder.comment("");
 
@@ -65,7 +76,6 @@ public class SunriseConfig {
 
         shovelReverting = builder.comment("Allows shovels to turn farmland to dirt when right clicking").define("shovel_reverting", true);
 
-        strictGreenhouses = builder.comment("Crops will not factor in greenhouse glass if farmland (#dewdrop:waterable) is between them and the glass").define("strict_greenhouses", true);
 
     }
 }

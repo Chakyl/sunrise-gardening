@@ -39,7 +39,6 @@ public class GardenPotBlock extends TilledSoilBlock  {
     }
 
 
-
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         return SHAPE;

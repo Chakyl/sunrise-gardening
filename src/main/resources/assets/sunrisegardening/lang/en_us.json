@@ -34,6 +34,42 @@
   "block.sunrisegardening.rope_hanging_garden_pot": "Rope Hanging Garden Pot",
   "block.sunrisegardening.iron_hanging_garden_pot": "Iron Hanging Garden Pot",
 
+  "tooltip.always.sunrisegardening.weak_fertilizer.0": "Decreases time it takes for crop to mature by 10%%",
+  "tooltip.always.sunrisegardening.strong_fertilizer.0": "Decreases time it takes for crop to mature by 25%%",
+  "tooltip.always.sunrisegardening.hyper_fertilizer.0": "Decreases time it takes for crop to mature by 33%%",
+  "tooltip.always.sunrisegardening.hydrating_fertilizer.0": "Keeps farmland watered until crop is half grown (rounded down)",
+  "tooltip.always.sunrisegardening.deluxe_hydrating_fertilizer.0": "Farmland never dries out",
+  "tooltip.always.sunrisegardening.bountiful_fertilizer.0": "Crops have a 25%% chance to drop 1 extra when harvested",
+  "tooltip.always.sunrisegardening.bountiful_fertilizer.1": "§cCrops can no longer have quality",
+  "tooltip.always.sunrisegardening.low_quality_fertilizer.0": "Increases the chance of quality crops on harvest",
+  "tooltip.always.sunrisegardening.high_quality_fertilizer.0": "Greatly increases the chance of quality crops on harvest",
+  "tooltip.always.sunrisegardening.pristine_quality_fertilizer.0": "Supremely increases the chance of quality crops on harvest",
+
+  "tooltip.always.sunrisegardening.garden_pot.0": "Grow crops indoors during any season. Cannot be watered with Sprinklers",
+  "tooltip.always.sunrisegardening.garden_pot.1": "Can be upgraded with Deluxe Hydrating Fertilizer and hung from chains and ropes",
+
+  "tooltip_util.sunrisegardening.greenhouse_glass": "Grows the first crop underneath in any season within 16 blocks",
+
+  "tooltip.always.sunrisegardening.greenhouse_glass.0": "<ltlangkey>tooltip_util.sunrisegardening.greenhouse_glass</ltlangkey>",
+  "tooltip.always.sunrisegardening.greenhouse_glass_stairs.0": "<ltlangkey>tooltip_util.sunrisegardening.greenhouse_glass</ltlangkey>",
+  "tooltip.always.sunrisegardening.greenhouse_glass_slab.0": "<ltlangkey>tooltip_util.sunrisegardening.greenhouse_glass</ltlangkey>",
+  "tooltip.always.sunrisegardening.greenhouse_glass_pane.0": "<ltlangkey>tooltip_util.sunrisegardening.greenhouse_glass</ltlangkey>",
+
+  "tooltip_util.sunrisegardening.sprinkler": "Waters crops before they dry out at 6am",
+  "tooltip_util.sunrisegardening.sprinkler_stick": "Can be given a stick for decoration",
+
+  "tooltip.always.sunrisegardening.iron_sprinkler.0": "<ltlangkey>tooltip_util.sunrisegardening.sprinkler</ltlangkey>",
+  "tooltip.always.sunrisegardening.iron_sprinkler.1": "<ltlangkey>tooltip_util.sunrisegardening.sprinkler_stick</ltlangkey>",
+  "tooltip.always.sunrisegardening.iron_sprinkler.2": "§aArea: 3x3",
+  "tooltip.always.sunrisegardening.gold_sprinkler.0": "<ltlangkey>tooltip_util.sunrisegardening.sprinkler</ltlangkey>",
+  "tooltip.always.sunrisegardening.gold_sprinkler.1": "<ltlangkey>tooltip_util.sunrisegardening.sprinkler_stick</ltlangkey>",
+  "tooltip.always.sunrisegardening.gold_sprinkler.2": "§aArea: 5x5",
+  "tooltip.always.sunrisegardening.diamond_sprinkler.0": "<ltlangkey>tooltip_util.sunrisegardening.sprinkler</ltlangkey>",
+  "tooltip.always.sunrisegardening.diamond_sprinkler.1": "<ltlangkey>tooltip_util.sunrisegardening.sprinkler_stick</ltlangkey>",
+  "tooltip.always.sunrisegardening.diamond_sprinkler.2": "§aArea: 7x7",
+  "tooltip.always.sunrisegardening.netherite_sprinkler.0": "<ltlangkey>tooltip_util.sunrisegardening.sprinkler</ltlangkey>",
+  "tooltip.always.sunrisegardening.netherite_sprinkler.1": "<ltlangkey>tooltip_util.sunrisegardening.sprinkler_stick</ltlangkey>",
+  "tooltip.always.sunrisegardening.netherite_sprinkler.2": "§aArea: 9x9",
 
   "tooltip.sunrisegardening.harvest_info_hold": "Hold [§7Shift§8]",
   "tooltip.sunrisegardening.harvest_info": "Harvest Info:",
@@ -42,5 +78,9 @@
   "tooltip.sunrisegardening.single_harvest": " Single Harvest",
   "tooltip.sunrisegardening.multi_harvest": " Multi Harvest",
   "config.jade.plugin_sunrisegardening.crop_info": "Crop Info",
-  "tooltip.sunrisegardening.crop_info": "Growth: %s"
+  "jade.sunrisegardening.crop_info": "Growth: %s days",
+  "jade.sunrisegardening.crop_growth.stop": "Cannot grow",
+  "jade.sunrisegardening.crop_growth.need_farmland":"Requires Farmland",
+  "jade.sunrisegardening.crop_growth.need_tilled_sand":"Requires Tilled Sand",
+  "jade.sunrisegardening.crop_growth.need_watered_farmland":"Requires Farmland underwater"
 }

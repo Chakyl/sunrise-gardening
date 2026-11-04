@@ -9,6 +9,8 @@
     "sunrisegardening:pristine_quality_fertilized_farmland",
     "sunrisegardening:weak_fertilized_farmland",
     "sunrisegardening:strong_fertilized_farmland",
-    "sunrisegardening:hyper_fertilized_farmland"
+    "sunrisegardening:hyper_fertilized_farmland",
+    "sunrisegardening:tilled_sand",
+    "sunrisegardening:hyper_fertilized_sand"
   ]
 }

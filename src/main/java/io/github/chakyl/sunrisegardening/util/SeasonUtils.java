@@ -20,6 +20,7 @@ public class SeasonUtils {
             if (SunriseGardening.CONFIG.strictGreenhouses.get() && scannedBlock.is(SunriseTags.CROP_GROWING))
                 return false;
             if (scannedBlock.is(SunriseTags.GREENHOUSE_GLASS)) {
+                if (SunriseGardening.CONFIG.needsSun.get() && !level.canSeeSky(cropPos.offset(0, i + 1, 0))) continue;
                 return true;
             }
         }
@@ -32,7 +33,7 @@ public class SeasonUtils {
             boolean fertile = ModFertility.isCropFertile(fertileKey.toString(), level, cropPos);
             return (!ModConfig.fertility.seasonalCrops || fertile || isGlassAboveBlock(level, cropPos) || ((state.getBlock() instanceof GardenPotBlock) && !level.canSeeSky(cropPos.above())));
         }
-        return false;
+        return true;
     }
 
 }

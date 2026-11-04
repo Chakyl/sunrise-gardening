@@ -26,8 +26,12 @@ public class DayDataUtils {
         TilledBlockChunkData chunkData = chunk.getData(SunriseRegistry.AttachmentRegistry.TILLED_BLOCK_CHUNK_DATA);
         return chunkData.dayDataMap.get(pos) != null;
     }
-
     public static DayData getDayData(ServerLevel level, BlockPos pos) {
+        LevelChunk chunk = level.getChunkAt(pos);
+        TilledBlockChunkData chunkData = chunk.getData(SunriseRegistry.AttachmentRegistry.TILLED_BLOCK_CHUNK_DATA);
+        return chunkData.dayDataMap.get(pos);
+    }
+    public static DayData getOrCreateDayData(ServerLevel level, BlockPos pos) {
         LevelChunk chunk = level.getChunkAt(pos);
         TilledBlockChunkData chunkData = chunk.getData(SunriseRegistry.AttachmentRegistry.TILLED_BLOCK_CHUNK_DATA);
         return chunkData.dayDataMap.computeIfAbsent(pos, blockPos -> new DayData(DayDataUtils.getCurrentDay(level), 0));
@@ -41,9 +45,9 @@ public class DayDataUtils {
         return (int) Math.floor(growTime * (mult < 1 ? 1 - mult : mult));
     }
 
-    public static int getTotalGrowTime(BlockState cropBlockState, Block cropBlock, BlockState farmland) {
+    public static int getTotalGrowTime(BlockState cropBlockState, BlockState farmland) {
         Integer growTime = cropBlockState.getBlockHolder().getData(DataMapRegistry.CROP_GROW_TIMES);
-        return getFertilizedGrowTime((growTime == null ? getMaxAgeFromAnyCrop(cropBlockState, cropBlock) : growTime), farmland);
+        return getFertilizedGrowTime((growTime == null ? getMaxAgeFromAnyCrop(cropBlockState) : growTime), farmland);
     }
 
     public static int getCalculatedAge(DayData dayData, int maxAge, int totalGrowTime) {
@@ -51,8 +55,9 @@ public class DayDataUtils {
     }
 
     // Makes the chunk attachment data reflect the blockstate age of the crop
-    public static void syncDayData(DayData dayData, BlockState cropBlockState, Block cropBlock, BlockState farmland) {
-        int totalGrowTime = getTotalGrowTime(cropBlockState, cropBlock, farmland);
+    public static void syncDayData(DayData dayData, BlockState cropBlockState, BlockState farmland) {
+        Block cropBlock = cropBlockState.getBlock();
+        int totalGrowTime = getTotalGrowTime(cropBlockState, farmland);
         int maxAge = cropBlock instanceof CropBlock ? ((CropBlock) cropBlock).getMaxAge() : 7;
         int currentAge = cropBlock instanceof CropBlock ? ((CropBlock) cropBlock).getAge(cropBlockState) : 1;
         if (currentAge != getCalculatedAge(dayData, maxAge, totalGrowTime)) {

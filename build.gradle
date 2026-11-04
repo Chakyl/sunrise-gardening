@@ -197,7 +197,7 @@ dependencies {
     // Kaleidoscope Mods - 1.4.1
     implementation "curse.maven:kaleidoscope-cookery-1309203:8266772"
 
-    jarJar(implementation("maven.modrinth:libtooltips:2.3.2-NEOFORGE-1.21.1"))
+    implementation "maven.modrinth:libtooltips:3.0-NEOFORGE-1.21.1"
     // For more info:
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html

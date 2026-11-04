@@ -4,6 +4,7 @@ import com.google.common.base.Suppliers;
 import io.github.chakyl.sunrisegardening.SunriseGardening;
 import io.github.chakyl.sunrisegardening.blocks.GardenPotBlock;
 import io.github.chakyl.sunrisegardening.blocks.SprinklerBlock;
+import io.github.chakyl.sunrisegardening.blocks.TilledSandBlock;
 import io.github.chakyl.sunrisegardening.blocks.TilledSoilBlock;
 import io.github.chakyl.sunrisegardening.dataattachments.TilledBlockChunkData;
 import io.github.chakyl.sunrisegardening.items.FertilizerItem;
@@ -83,6 +84,10 @@ public final class SunriseRegistry {
                 () -> new TilledSoilBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.FARMLAND)));
         public static final DeferredHolder<Block, Block> PRISTINE_QUALITY_FERTILIZED_FARMLAND = registerWithItem("pristine_quality_fertilized_farmland",
                 () -> new TilledSoilBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.FARMLAND)));
+        public static final DeferredHolder<Block, Block> TILLED_SAND = registerWithItem("tilled_sand",
+                () -> new TilledSandBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+        public static final DeferredHolder<Block, Block> HYPER_FERTILIZED_SAND = registerWithItem("hyper_fertilized_sand",
+                () -> new TilledSandBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
 
         public static final DeferredHolder<Block, Block> GARDEN_POT = registerWithItem("garden_pot",
                 () -> new GardenPotBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.TERRACOTTA).sound(SoundType.DECORATED_POT)));

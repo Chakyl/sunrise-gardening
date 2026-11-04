@@ -8,18 +8,26 @@ import net.mehvahdjukaar.hauntedharvest.blocks.CornBaseBlock;
 import net.mehvahdjukaar.supplementaries.common.block.blocks.FlaxBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.neoforged.neoforge.common.CommonHooks;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.level.block.CropGrowEvent;
 
-import static io.github.chakyl.sunrisegardening.util.DayDataUtils.getCalculatedAge;
+import static io.github.chakyl.sunrisegardening.util.DayDataUtils.*;
+import static io.github.chakyl.sunrisegardening.util.SeasonUtils.canGrowInSeason;
 
 
 public class CropHandlerUtils {
 
-    public static int getMaxAgeFromAnyCrop(BlockState state, Block crop) {
+    public static int getMaxAgeFromAnyCrop(BlockState state) {
+        Block crop = state.getBlock();
         if (crop instanceof CropBlock cropBlock) return cropBlock.getMaxAge();
+        if (crop instanceof CactusBlock) return 1;
+        if (crop instanceof SugarCaneBlock) return 1;
         if (crop instanceof NetherWartBlock || crop instanceof BonemealableBlock) {
             if (state.hasProperty(BlockStateProperties.AGE_2)) {
                 return 2;
@@ -115,18 +123,18 @@ public class CropHandlerUtils {
 
 
     public static void growCactusLike(ServerLevel level, Block block, BlockPos pos, BlockState farmland) {
-        int growth = getFertilizerIncrease(0, 2, farmland);
+        int growth = farmland.is(SunriseTags.HYPER_FERTILIZED_FARMLAND)  ? 2 : 1;
         for (int i = 1; i < 3; ++i) {
             if (level.getBlockState(pos.above(i)).is(Blocks.AIR)) {
-                // TODO: Forgehooks aren't a thing I think
-//                if (block instanceof SugarCaneBlock && ForgeHooks.onCropsGrowPre(level, pos.above(i), block.defaultBlockState(), true)) {
-//                    level.setBlockAndUpdate(pos.above(i), block.defaultBlockState());
-//                    ForgeHooks.onCropsGrowPost(level, pos.above(i), block.defaultBlockState());
-//                    level.setBlock(pos.above(i), block.defaultBlockState(), 4);
-//                } else if (ForgeHooks.onCropsGrowPre(level, pos.above(i), block.defaultBlockState(), true)) {
-//                    level.setBlockAndUpdate(pos.above(i), block.defaultBlockState());
-//                    level.neighborChanged(block.defaultBlockState(), pos.above(i - 1), block, pos.above(i), false);
-//                }
+                BlockState defaultState = block.defaultBlockState();
+                if (block instanceof SugarCaneBlock) {
+                    level.setBlockAndUpdate(pos.above(i), defaultState);
+                    CommonHooks.fireCropGrowPost(level, pos.above(i), defaultState);
+                } else {
+                    level.setBlockAndUpdate(pos.above(i), defaultState);
+                    NeoForge.EVENT_BUS.post(new CropGrowEvent.Post(level, pos, defaultState, defaultState));
+                    level.neighborChanged(pos.below(), block, pos);
+                }
                 if (growth > 1) {
                     growth--;
                 } else break;
@@ -139,8 +147,6 @@ public class CropHandlerUtils {
         if (aboveBlock instanceof CactusBlock cactusBlock) {
             growCactusLike(level, cactusBlock, abovePos, farmland);
         } else if (aboveBlock instanceof SugarCaneBlock sugarCaneBlock) {
-            // TODO: Either add an access widener or just redo logic
-//            if (sugarCaneBlock.canSurvive(crop, level, abovePos))
             growCactusLike(level, sugarCaneBlock, abovePos, farmland);
         }
     }
@@ -179,5 +185,49 @@ public class CropHandlerUtils {
             handleCropGrowth(level, dayData, totalGrowTime, crop, cropPos, farmland);
         }
 
+    }
+    public static void processDailyLogic(ServerLevel level, BlockPos pos, BlockState state, long daysPassed, DayData dayData) {
+        processDailyLogic(level, pos, state, daysPassed, dayData, false);
+    }
+
+    public static void processDailyLogic(ServerLevel level, BlockPos pos, BlockState state, long daysPassed, DayData dayData, boolean sandy) {
+        BlockPos cropPos = pos.above();
+        BlockState cropBlockState = level.getBlockState(pos.above());
+        boolean canGrow = canGrowInSeason(level, state, cropBlockState, cropPos);
+        if (SunriseGardening.CONFIG.needsSun.get() && !level.canSeeSky(cropPos)) canGrow = false;
+        if (!canGrow) return;
+        if (!cropBlockState.is(SunriseTags.SUNRISE_CROP)) return;
+        if (cropBlockState.getBlock() instanceof CropBlock cropBlock && cropBlock.isMaxAge(cropBlockState)) return;
+
+        syncDayData(dayData, cropBlockState, state);
+        int totalGrowTime = getTotalGrowTime(cropBlockState, state);
+        if (totalGrowTime > 1 ) {
+            if (SunriseGardening.CONFIG.checkSprinklers.get() && !isNearSprinkler(level, pos)) totalGrowTime = 1;
+        }
+        dayData.totalDaysGrown = (int) Math.min(daysPassed + dayData.totalDaysGrown, totalGrowTime);
+        CropHandlerUtils.growCrop(level, dayData, totalGrowTime, cropBlockState, cropPos, state, sandy);
+    }
+
+
+    public static BlockState getSoil(Level level, BlockPos position) {
+        for (int i = -4; i < 0; i++) {
+            BlockPos scannedPos = position.above(i);
+            BlockState scannedState = level.getBlockState(scannedPos);
+            if (scannedState.is(SunriseTags.CROP_GROWING)) {
+                return scannedState;
+            }
+        }
+        return null;
+    }
+
+    public static BlockPos getSoilPos(Level level, BlockPos position) {
+        for (int i = -4; i < 0; i++) {
+            BlockPos scannedPos = position.above(i);
+            BlockState scannedState = level.getBlockState(scannedPos);
+            if (scannedState.is(SunriseTags.CROP_GROWING)) {
+                return scannedPos;
+            }
+        }
+        return null;
     }
 }

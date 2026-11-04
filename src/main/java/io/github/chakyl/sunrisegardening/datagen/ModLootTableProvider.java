@@ -30,6 +30,8 @@ public class ModLootTableProvider extends BlockLootSubProvider {
         dropOther(SunriseRegistry.BlockRegistry.WEAK_FERTILIZED_FARMLAND.get(), Items.DIRT);
         dropOther(SunriseRegistry.BlockRegistry.STRONG_FERTILIZED_FARMLAND.get(), Items.DIRT);
         dropOther(SunriseRegistry.BlockRegistry.HYPER_FERTILIZED_FARMLAND.get(), Items.DIRT);
+        dropOther(SunriseRegistry.BlockRegistry.TILLED_SAND.get(), Items.SAND);
+        dropOther(SunriseRegistry.BlockRegistry.HYPER_FERTILIZED_SAND.get(), Items.SAND);
         dropSelf(SunriseRegistry.BlockRegistry.GARDEN_POT.get());
         dropOther(SunriseRegistry.BlockRegistry.IRON_HANGING_GARDEN_POT.get(), SunriseRegistry.BlockRegistry.GARDEN_POT.get().asItem());
         dropOther(SunriseRegistry.BlockRegistry.ROPE_HANGING_GARDEN_POT.get(), SunriseRegistry.BlockRegistry.GARDEN_POT.get().asItem());
@@ -54,6 +56,8 @@ public class ModLootTableProvider extends BlockLootSubProvider {
         list.add(SunriseRegistry.BlockRegistry.WEAK_FERTILIZED_FARMLAND.get());
         list.add(SunriseRegistry.BlockRegistry.STRONG_FERTILIZED_FARMLAND.get());
         list.add(SunriseRegistry.BlockRegistry.HYPER_FERTILIZED_FARMLAND.get());
+        list.add(SunriseRegistry.BlockRegistry.TILLED_SAND.get());
+        list.add(SunriseRegistry.BlockRegistry.HYPER_FERTILIZED_SAND.get());
         list.add(SunriseRegistry.BlockRegistry.GARDEN_POT.get());
         list.add(SunriseRegistry.BlockRegistry.IRON_HANGING_GARDEN_POT.get());
         list.add(SunriseRegistry.BlockRegistry.ROPE_HANGING_GARDEN_POT.get());

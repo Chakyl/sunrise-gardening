@@ -14,6 +14,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -25,6 +26,7 @@ import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
@@ -46,17 +48,22 @@ public class FarmlandEvents {
         BlockPos pos = event.getPos();
         ItemStack stack = event.getItemStack();
         Player player = event.getEntity();
-        if (stack.getItem() instanceof HoeItem && level.getBlockState(pos).is(SunriseTags.TURNS_INTO_TILLED_SOIL)) {
+        hoeBlocks(event, stack, level, pos, player, SunriseTags.TURNS_INTO_TILLED_SOIL, SunriseRegistry.BlockRegistry.TILLED_SOIL.get().defaultBlockState());
+        hoeBlocks(event, stack, level, pos, player, SunriseTags.TURNS_INTO_TILLED_SAND, SunriseRegistry.BlockRegistry.TILLED_SAND.get().defaultBlockState());
+    }
+
+    private static void hoeBlocks(PlayerInteractEvent.RightClickBlock event, ItemStack stack, Level level, BlockPos pos, Player player, TagKey<Block> blockTag, BlockState outputState) {
+        if (stack.getItem() instanceof HoeItem && level.getBlockState(pos).is(blockTag)) {
             if (player.getCooldowns().isOnCooldown(stack.getItem())) return;
             if (!level.isClientSide) {
-                level.setBlock(pos, SunriseRegistry.BlockRegistry.TILLED_SOIL.get().defaultBlockState(), 3);
+                level.setBlock(pos, outputState, 3);
                 int durability = 1;
                 if (player.isCrouching()) {
                     Integer aoeStyle = stack.getItemHolder().getData(DataMapRegistry.HOE_AOE_STYLE);
                     if (aoeStyle != null && aoeStyle >= 1 && aoeStyle <= 4) {
                         AABB area = getHoeArea(aoeStyle, player, pos);
                         BlockPos.betweenClosedStream(area).forEach(blockPos -> {
-                            level.setBlock(blockPos, SunriseRegistry.BlockRegistry.TILLED_SOIL.get().defaultBlockState(), 3);
+                            if (level.getBlockState(blockPos).is(blockTag)) level.setBlock(blockPos, outputState, 3);
                         });
                         durability += aoeStyle * 2;
                         player.getCooldowns().addCooldown(stack.getItem(), aoeStyle * 10);

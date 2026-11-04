@@ -37,6 +37,8 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         generateFarmlandTags(SunriseRegistry.BlockRegistry.WEAK_FERTILIZED_FARMLAND, SunriseTags.WEAK_FERTILIZED_FARMLAND);
         generateFarmlandTags(SunriseRegistry.BlockRegistry.STRONG_FERTILIZED_FARMLAND, SunriseTags.STRONG_FERTILIZED_FARMLAND);
         generateFarmlandTags(SunriseRegistry.BlockRegistry.HYPER_FERTILIZED_FARMLAND, SunriseTags.HYPER_FERTILIZED_FARMLAND);
+        generateSandTags(SunriseRegistry.BlockRegistry.TILLED_SAND, null);
+        generateSandTags(SunriseRegistry.BlockRegistry.HYPER_FERTILIZED_SAND, SunriseTags.HYPER_FERTILIZED_FARMLAND);
 
         generateGardenPotTags(SunriseRegistry.BlockRegistry.GARDEN_POT);
         generateGardenPotTags(SunriseRegistry.BlockRegistry.ROPE_HANGING_GARDEN_POT);
@@ -64,6 +66,16 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         tag(mineableTag).add(block.get());
     }
 
+    public void generateSandTags(DeferredHolder<Block, Block> block, TagKey<Block> farmlandTag) {
+        generateSandTags(block, farmlandTag, BlockTags.MINEABLE_WITH_SHOVEL);
+    }
+
+    public void generateSandTags(DeferredHolder<Block, Block> block, TagKey<Block> farmlandTag, TagKey<Block> mineableTag) {
+        tag(SunriseTags.CROP_GROWING).add(block.get());
+        tag(BlockTags.SAND).add(block.get());
+        if (farmlandTag != null) tag(farmlandTag).add(block.get());
+        tag(mineableTag).add(block.get());
+    }
     public void generateGardenPotTags(DeferredHolder<Block, Block> block) {
         tag(DewDropBlockTags.WATERABLE).add(block.get());
         tag(SunriseTags.CROP_GROWING).add(block.get());

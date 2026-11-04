@@ -30,7 +30,10 @@ public class SunriseTags {
     public static final TagKey<Item> HYDRATING_FERTILIZER = itemTag("hydrating_fertilizer");
     // Misc
     public static final TagKey<Block> TURNS_INTO_TILLED_SOIL = blockTag("turns_into_tilled_soil");
+    public static final TagKey<Block> TURNS_INTO_TILLED_SAND = blockTag("turns_into_tilled_sand");
+    public static final TagKey<Block> GROWS_ON_SAND = blockTag("grows_on_sand");
     public static final TagKey<Block> CANCEL_RANDOM_TICK = blockTag("cancel_random_tick");
+    public static final TagKey<Block> SUNRISE_CROP = blockTag("sunrise_crop");
     public static final TagKey<Block> NOT_DAILY = blockTag("not_daily");
     public static final TagKey<Block> SINGLE_HARVEST_CROP = blockTag("single_harvest_crop");
     public static final TagKey<Block> SPRINKLER = blockTag("sprinkler");

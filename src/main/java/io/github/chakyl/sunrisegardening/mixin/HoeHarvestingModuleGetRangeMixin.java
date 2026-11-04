@@ -10,7 +10,7 @@ import org.violetmoon.quark.base.Quark;
 import org.violetmoon.quark.content.tweaks.module.HoeHarvestingModule;
 
 @Mixin(value = HoeHarvestingModule.class, remap = false)
-public abstract class HoeHarvestingModuleMixin {
+public abstract class HoeHarvestingModuleGetRangeMixin {
 
     @Inject(method = "getRange", at = @At("HEAD"), cancellable = true)
     private static void getHoeRange(ItemStack hoe, CallbackInfoReturnable<Integer> cir) {

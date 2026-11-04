@@ -5,7 +5,7 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "SimpleHarvestModuleMixin",
-    "HoeHarvestingModuleMixin",
+    "HoeHarvestingModuleGetRangeMixin",
     "RandomTickMixin"
   ],
   "client": [],
