@@ -82,5 +82,10 @@
   "jade.sunrisegardening.crop_growth.stop": "Cannot grow",
   "jade.sunrisegardening.crop_growth.need_farmland":"Requires Farmland",
   "jade.sunrisegardening.crop_growth.need_tilled_sand":"Requires Tilled Sand",
-  "jade.sunrisegardening.crop_growth.need_watered_farmland":"Requires Farmland underwater"
+  "jade.sunrisegardening.crop_growth.need_watered_farmland":"Requires Farmland underwater",
+
+  "messages.sunrisegardening.chunk_data_renderer.not_found": "No growth data found in this chunk.",
+  "messages.sunrisegardening.chunk_data_renderer.found": "%s tracked blocks in this chunk.",
+  "messages.sunrisegardening.chunk_data_renderer.data": "Grown: %s | Last: %s",
+  "messages.sunrisegardening.chunk_data.cleared": "Chunk data cleared"
 }

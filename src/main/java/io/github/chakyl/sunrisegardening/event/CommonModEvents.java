@@ -1,10 +1,13 @@
 package io.github.chakyl.sunrisegardening.event;
 
 import io.github.chakyl.sunrisegardening.SunriseGardening;
+import io.github.chakyl.sunrisegardening.command.DebugFarmlandDataCommand;
+import io.github.chakyl.sunrisegardening.command.RemoveFarmlandDataCommand;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
 
 import static io.github.chakyl.sunrisegardening.registry.DataMapRegistry.*;
@@ -39,5 +42,11 @@ public class CommonModEvents {
         event.register(HOE_AOE_STYLE);
 
         event.register(PERMANENT_SEASON_BIOMES);
+    }
+
+    @SubscribeEvent
+    public static void onRegisterCommands(RegisterCommandsEvent event) {
+        DebugFarmlandDataCommand.register(event.getDispatcher());
+        RemoveFarmlandDataCommand.register(event.getDispatcher());
     }
 }

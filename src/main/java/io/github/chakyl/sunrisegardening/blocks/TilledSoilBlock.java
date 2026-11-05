@@ -32,11 +32,6 @@ public class TilledSoilBlock extends FarmBlock {
     public TilledSoilBlock(Properties properties) {
         super(properties);
     }
-//    @Override
-//    public boolean canSustainPlant(BlockState state, BlockGetter world, BlockPos pos, Direction facing, net.minecraftforge.common.IPlantable plantable) {
-//        net.minecraftforge.common.PlantType plantType = plantable.getPlantType(world, pos.relative(facing));
-//        return plantType == PlantType.CROP || plantType == PlantType.PLAINS;
-//    }
 
     @Override
     protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
