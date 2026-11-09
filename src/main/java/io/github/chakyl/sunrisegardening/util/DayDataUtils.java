@@ -7,12 +7,11 @@ import io.github.chakyl.sunrisegardening.registry.SunriseRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunk;
 
 import static io.github.chakyl.sunrisegardening.blocks.TilledSoilBlock.DAY_TICKS;
+import static io.github.chakyl.sunrisegardening.util.CropHandlerUtils.getAgeFromAnyCrop;
 import static io.github.chakyl.sunrisegardening.util.CropHandlerUtils.getMaxAgeFromAnyCrop;
 
 public class DayDataUtils {
@@ -49,17 +48,21 @@ public class DayDataUtils {
         Integer growTime = cropBlockState.getBlockHolder().getData(DataMapRegistry.CROP_GROW_TIMES);
         return getFertilizedGrowTime((growTime == null ? getMaxAgeFromAnyCrop(cropBlockState) : growTime), farmland);
     }
+    public static int getCalculatedAge(DayData dayData, BlockState state, int totalGrowTime) {
+        return getCalculatedAge(dayData, getMaxAgeFromAnyCrop(state), totalGrowTime);
+    }
 
     public static int getCalculatedAge(DayData dayData, int maxAge, int totalGrowTime) {
         return Math.max(0, Math.min(maxAge, (int) ((dayData.totalDaysGrown * (long) maxAge) / totalGrowTime)));
     }
 
     // Makes the chunk attachment data reflect the blockstate age of the crop
-    public static void syncDayData(DayData dayData, BlockState cropBlockState, BlockState farmland) {
-        Block cropBlock = cropBlockState.getBlock();
+    public static void syncDayData(ServerLevel level, BlockPos farmlandPos, BlockState cropBlockState) {
+        BlockState farmland = level.getBlockState(farmlandPos);
+        DayData dayData = getOrCreateDayData(level, farmlandPos);
         int totalGrowTime = getTotalGrowTime(cropBlockState, farmland);
-        int maxAge = cropBlock instanceof CropBlock ? ((CropBlock) cropBlock).getMaxAge() : 7;
-        int currentAge = cropBlock instanceof CropBlock ? ((CropBlock) cropBlock).getAge(cropBlockState) : 1;
+        int maxAge = getMaxAgeFromAnyCrop(cropBlockState);
+        int currentAge = getAgeFromAnyCrop(level, farmlandPos.above(), cropBlockState);
         if (currentAge != getCalculatedAge(dayData, maxAge, totalGrowTime)) {
             dayData.totalDaysGrown = Math.max(0, (currentAge * totalGrowTime + maxAge - 1) / maxAge);
         }

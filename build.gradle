@@ -182,7 +182,7 @@ dependencies {
     // Cultural Delights - 0.17.8
     implementation "curse.maven:cultural-delights-574622:8126191"
     // Windswept - 1.21.1-4.0.2 | Blueprint - 1.21.1 - 8.1.1
-    compileOnly "curse.maven:windsweptmod-636321:8726892"
+    implementation "curse.maven:windsweptmod-636321:8726892"
     implementation "curse.maven:blueprint-382216:8397829"
     // Vinery - 1.5.3 - 1.21.1
     compileOnly "curse.maven:lets-do-vinery-704465:7539914"
@@ -191,7 +191,7 @@ dependencies {
     // Cobblemon - I don't want to deal with it right now
 //    implementation fg.deobf("curse.maven:cobblemon-687131:5375390")
     // Hearth and Harvest - 1.21.1-1.3.3
-    compileOnly "curse.maven:hearth-and-harvest-1212197:8590173"
+    implementation "curse.maven:hearth-and-harvest-1212197:8590173"
     // Haunted Harvest - 1.21-3.5.0
     implementation "curse.maven:haunted-harvest-541753:8594354"
     // Kaleidoscope Mods - 1.4.1

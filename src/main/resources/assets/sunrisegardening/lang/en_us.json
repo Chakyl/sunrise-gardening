@@ -79,6 +79,7 @@
   "tooltip.sunrisegardening.multi_harvest": " Multi Harvest",
   "config.jade.plugin_sunrisegardening.crop_info": "Crop Info",
   "jade.sunrisegardening.crop_info": "Growth: %s days",
+  "jade.sunrisegardening.crop_info_mature": "Growth: %s",
   "jade.sunrisegardening.crop_growth.stop": "Cannot grow",
   "jade.sunrisegardening.crop_growth.need_farmland":"Requires Farmland",
   "jade.sunrisegardening.crop_growth.need_tilled_sand":"Requires Tilled Sand",

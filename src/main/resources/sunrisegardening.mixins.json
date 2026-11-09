@@ -4,9 +4,12 @@
   "package": "io.github.chakyl.sunrisegardening.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "SimpleHarvestModuleMixin",
+    "GearoBerryBushBlockHarvestMixin",
     "HoeHarvestingModuleGetRangeMixin",
-    "RandomTickMixin"
+    "RandomTickMixin",
+    "SimpleHarvestModuleMixin",
+    "SweetBerryBushHarvestMixin",
+    "WildBerryBushBlockHarvestMixin"
   ],
   "client": [],
   "injectors": {

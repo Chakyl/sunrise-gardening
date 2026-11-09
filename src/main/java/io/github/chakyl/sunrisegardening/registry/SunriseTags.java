@@ -22,6 +22,7 @@ public class SunriseTags {
     public static final TagKey<Block> HIGH_QUALITY_FERTILIZED_FARMLAND = blockTag("high_quality_farmland");
     public static final TagKey<Block> PRISTINE_QUALITY_FERTILIZED_FARMLAND = blockTag("pristine_quality_farmland");
     public static final TagKey<Block> GREENHOUSE_GLASS = blockTag("greenhouse_glass");
+    public static final TagKey<Block> IGNORES_SUN = blockTag("ignores_sun");
 
     // Item
     public static final TagKey<Item> FERTILIZER = itemTag("fertilizer");

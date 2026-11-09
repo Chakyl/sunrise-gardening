@@ -20,6 +20,7 @@ public class SunriseConfig {
     // Crop Growth
     public final ModConfigSpec.BooleanValue strictGreenhouses;
     public final ModConfigSpec.BooleanValue needsSun;
+    public final ModConfigSpec.BooleanValue replaceStem;
     // Etc?
     public final ModConfigSpec.BooleanValue noTrample;
     public final ModConfigSpec.BooleanValue sturdyFarmland;
@@ -65,6 +66,7 @@ public class SunriseConfig {
 
         needsSun = builder.comment("Crops need sky access to grow. If greenhouse glass is used, the glass needs sky access. Transparent blocks do not block sky access").define("needs_sun", true);
 
+        replaceStem = builder.comment("Determines if stem crops like Pumpkins and Melons replace their stem when growing rather than trying to find a free spot").define("replace_stem", true);
 
         builder.comment("");
         builder.comment("  ~~~ [ Misc Configs] ~~~");

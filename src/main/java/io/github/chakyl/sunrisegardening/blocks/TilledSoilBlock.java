@@ -12,10 +12,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.AirBlock;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CropBlock;
-import net.minecraft.world.level.block.FarmBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.material.Fluids;
@@ -50,7 +47,7 @@ public class TilledSoilBlock extends FarmBlock {
             BlockState crop = level.getBlockState(abovePos);
             boolean becameDirt = false;
             if (!nearSprinkler && !Util.isMoistWaterable(level, pos)) {
-                if (crop.is(Blocks.AIR) && RNG.mc_ihundo(random, SunriseGardening.CONFIG.dailyCroplessDecayChance.get())) {
+                if ((crop.is(Blocks.AIR) || !crop.is(SunriseTags.SUNRISE_CROP)) && RNG.mc_ihundo(random, SunriseGardening.CONFIG.dailyCroplessDecayChance.get())) {
                     becameDirt = true;
                 } else if (RNG.mc_ihundo(random, SunriseGardening.CONFIG.dailyCropDecayChance.get())) {
                     becameDirt = true;
@@ -114,6 +111,13 @@ public class TilledSoilBlock extends FarmBlock {
         super.onRemove(state, level, pos, newState, movedByPiston);
     }
 
+    @Override
+    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean movedByPiston) {
+        super.neighborChanged(state, level, pos, neighborBlock, neighborPos, movedByPiston);
+        if (level.isClientSide()) return;
+        syncDayData((ServerLevel) level, pos, level.getBlockState(pos.above()));
+
+    }
     private void scheduleNextTick(Level level, BlockPos blockPos) {
         level.scheduleTick(blockPos, this, 10);
     }

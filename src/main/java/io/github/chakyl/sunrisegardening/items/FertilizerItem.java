@@ -64,7 +64,7 @@ public class FertilizerItem extends Item {
                             level.setBlock(posClicked, moisturizer(SunriseRegistry.BlockRegistry.HYPER_FERTILIZED_FARMLAND.value(), state), 3);
                         }
                         BlockState cropBlockState = level.getBlockState(posClicked.above());
-                        syncDayData(getOrCreateDayData(level, posClicked), cropBlockState, state);
+                        syncDayData(level, posClicked, cropBlockState);
                     } else if (stack.is(SunriseRegistry.ItemRegistry.HYDRATING_FERTILIZER.get())) {
                         level.setBlock(posClicked, moisturizer(SunriseRegistry.BlockRegistry.HYDRATING_FARMLAND.value(), state), 3);
                     } else if (stack.is(SunriseRegistry.ItemRegistry.DELUXE_HYDRATING_FERTILIZER.get())) {
