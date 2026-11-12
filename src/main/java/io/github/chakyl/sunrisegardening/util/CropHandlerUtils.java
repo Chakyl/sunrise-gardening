@@ -37,16 +37,16 @@ import static net.minecraft.world.level.block.SweetBerryBushBlock.AGE;
 public class CropHandlerUtils {
     public static int getAgeFromAnyCrop(Level level, BlockPos pos, BlockState state) {
         Block crop = state.getBlock();
-        if (crop instanceof RicePaniclesBlock) return getFDRiceAge(level, pos, state, false);
-        if (crop instanceof RiceBlock) return getFDRiceAge(level, pos, state, true);
-        if (crop instanceof CornUpperBlock) return getCDCornAge(level, pos, state, false);
-        if (crop instanceof CornBlock) return getCDCornAge(level, pos, state, true);
+        if (SunriseGardening.FARMERS_DELIGHT_INSTALLED && crop instanceof RicePaniclesBlock) return getFDRiceAge(level, pos, state, false);
+        if (SunriseGardening.FARMERS_DELIGHT_INSTALLED &&crop instanceof RiceBlock) return getFDRiceAge(level, pos, state, true);
+        if (SunriseGardening.CULTURAL_DELIGHTS_INSTALLED && crop instanceof CornUpperBlock) return getCDCornAge(level, pos, state, false);
+        if (SunriseGardening.CULTURAL_DELIGHTS_INSTALLED && crop instanceof CornBlock) return getCDCornAge(level, pos, state, true);
         if (crop instanceof CropBlock cropBlock) return cropBlock.getAge(state);
         if (crop instanceof StemBlock) return state.getValue(StemBlock.AGE);
         if (crop instanceof SweetBerryBushBlock) return state.getValue(SweetBerryBushBlock.AGE);
-        if (crop instanceof WildBerryBushBlock) return state.getValue(WildBerryBushBlock.AGE);
-        if (crop instanceof GearoBerryBushBlock) return state.getValue(GearoBerryBushBlock.AGE);
-        if (crop instanceof RiceCropBlock) return state.getValue(RiceCropBlock.AGE);
+        if (SunriseGardening.VINTAGEDELIGHT_INSTALLED && crop instanceof WildBerryBushBlock) return state.getValue(WildBerryBushBlock.AGE);
+        if (SunriseGardening.WINDSWEPT_INSTALLED && crop instanceof GearoBerryBushBlock) return state.getValue(GearoBerryBushBlock.AGE);
+        if (SunriseGardening.KALEIDOSCOPE_COOKERY_INSTALLED && crop instanceof RiceCropBlock) return state.getValue(RiceCropBlock.AGE);
         // Cactuslikes
         if (crop instanceof CactusBlock) return 1;
         if (crop instanceof SugarCaneBlock) return 1;
@@ -58,19 +58,19 @@ public class CropHandlerUtils {
 
     public static int getMaxAgeFromAnyCrop(BlockState state) {
         Block crop = state.getBlock();
-        if (crop instanceof RicePaniclesBlock ricePaniclesBlock) return ricePaniclesBlock.getMaxAge() + 3;
-        if (crop instanceof RiceBlock riceBlock) return riceBlock.getMaxAge() + 3;
-        if (crop instanceof CornUpperBlock cornUpperBlock) return cornUpperBlock.getMaxAge() + 3;
-        if (crop instanceof CornBlock cornBlock) return cornBlock.getMaxAge() + 3;
+        if (SunriseGardening.FARMERS_DELIGHT_INSTALLED &&crop instanceof RicePaniclesBlock ricePaniclesBlock) return ricePaniclesBlock.getMaxAge() + 3;
+        if (SunriseGardening.FARMERS_DELIGHT_INSTALLED &&crop instanceof RiceBlock riceBlock) return riceBlock.getMaxAge() + 3;
+        if (SunriseGardening.CULTURAL_DELIGHTS_INSTALLED && crop instanceof CornUpperBlock cornUpperBlock) return cornUpperBlock.getMaxAge() + 3;
+        if (SunriseGardening.CULTURAL_DELIGHTS_INSTALLED && crop instanceof CornBlock cornBlock) return cornBlock.getMaxAge() + 3;
         if (crop instanceof CropBlock cropBlock) return cropBlock.getMaxAge();
         if (crop instanceof StemBlock) return StemBlock.MAX_AGE;
         if (crop instanceof CactusBlock) return 1;
         if (crop instanceof SugarCaneBlock) return 1;
         if (crop instanceof PitcherCropBlock) return PitcherCropBlock.MAX_AGE;
         if (crop instanceof SweetBerryBushBlock) return SweetBerryBushBlock.MAX_AGE;
-        if (crop instanceof GearoBerryBushBlock) return GearoBerryBushBlock.MAX_AGE;
-        if (crop instanceof WildBerryBushBlock) return 3;
-        if (crop instanceof RiceCropBlock) return RiceCropBlock.MAX_AGE;
+        if (SunriseGardening.VINTAGEDELIGHT_INSTALLED && crop instanceof GearoBerryBushBlock) return GearoBerryBushBlock.MAX_AGE;
+        if (SunriseGardening.WINDSWEPT_INSTALLED && crop instanceof WildBerryBushBlock) return 3;
+        if (SunriseGardening.KALEIDOSCOPE_COOKERY_INSTALLED && crop instanceof RiceCropBlock) return RiceCropBlock.MAX_AGE;
         if (crop instanceof NetherWartBlock || crop instanceof BonemealableBlock) {
             if (state.hasProperty(BlockStateProperties.AGE_2)) {
                 return 2;
